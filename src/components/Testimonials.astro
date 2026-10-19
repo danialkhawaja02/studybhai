@@ -1,170 +1,241 @@
 ---
+// src/components/Testimonials.astro
 import { STUDENT_TESTIMONIALS } from '@/lib/constants';
 ---
 
-<section class="testimonials-section">
+<section class="testimonials-cadmus-section">
   <div class="container">
-    <div class="testimonials-grid">
-      <!-- Left Satisfaction Block -->
-      <div class="satisfaction-card card-premium">
-        <span class="badge badge-brand">Testimonials</span>
-        <h2 class="satisfaction-heading">Students Feedback</h2>
-        <p class="satisfaction-subtext">
-          See how our resources are making a difference! Hear from real Pakistani students about their experiences and exam success.
-        </p>
+    <div class="testimonials-header">
+      <span class="badge-pill badge-peach">Verified Student Voice</span>
+      <h2 class="testimonials-title">
+        Trusted by Over 500,000 <span class="italic-serif">Pakistani Students</span>
+      </h2>
+      <p class="testimonials-subtitle">
+        Real feedback from Matric and Intermediate students across Punjab boards who prepare with Study Bhai resources.
+      </p>
+    </div>
 
-        <div class="satisfaction-stat-box">
-          <div class="satisfaction-percentage">100%</div>
-          <div class="satisfaction-label">Student Satisfaction Rating</div>
+    <div class="testimonials-grid">
+      <!-- Highlight Card with 100% Stat -->
+      <div class="stat-highlight-card vellum-card">
+        <span class="highlight-label">Student Success</span>
+        <div class="highlight-big">100%</div>
+        <div class="highlight-tag">Free & Open Access</div>
+        <p class="highlight-desc">
+          Every textbook, handwritten chapter note, and past paper solution on Study Bhai is delivered directly without paywalls or subscriptions.
+        </p>
+        <div class="satisfaction-badge">
+          <span>★★★★★</span>
+          <span>4.9 / 5 Average Rating</span>
         </div>
       </div>
 
-      <!-- Right Testimonials Cards -->
-      <div class="testimonials-cards-wrap">
-        {STUDENT_TESTIMONIALS.map((t) => (
-          <div class="testimonial-card card-premium">
-            <div class="rating-stars">
-              {Array.from({ length: t.rating }).map(() => (
-                <span class="star-icon">★</span>
-              ))}
-            </div>
-            <p class="testimonial-quote">"{t.quote}"</p>
-            <div class="testimonial-author">
-              <div class="author-avatar-initials">
-                {t.name.split(' ').map(n => n[0]).join('')}
+      <!-- Testimonial Quote Cards -->
+      <div class="quotes-column">
+        {STUDENT_TESTIMONIALS.map((item, idx) => {
+          const badgeClass = idx === 0 ? 'badge-blue' : idx === 1 ? 'badge-green' : 'badge-lavender';
+          return (
+            <div class="quote-card vellum-card">
+              <div class="quote-top">
+                <span class={`badge-pill ${badgeClass}`}>{item.grade}</span>
+                <span class="quote-stars">{'★'.repeat(item.rating)}</span>
               </div>
-              <div class="author-details">
-                <span class="author-name">{t.name}</span>
-                <span class="author-role">{t.grade}</span>
+              <p class="quote-body">"{item.quote}"</p>
+              <div class="quote-author">
+                <div class="author-circle">{item.name.charAt(0)}</div>
+                <div>
+                  <span class="author-name">{item.name}</span>
+                  <span class="author-board">Verified Student</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .testimonials-section {
-    padding: 5.5rem 0;
-    background: #F8FAFC;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
+  .testimonials-cadmus-section {
+    background-color: var(--color-bg-parchment);
+    padding: 90px 0;
+    border-bottom: 1px solid var(--color-vellum-border);
+  }
+
+  .testimonials-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 54px;
+  }
+
+  .testimonials-header .badge-pill {
+    margin-bottom: 14px;
+  }
+
+  .testimonials-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.8vw, 2.7rem);
+    font-weight: 800;
+    color: var(--color-text-main);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .testimonials-title .italic-serif {
+    color: var(--color-wine);
+  }
+
+  .testimonials-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
   }
 
   .testimonials-grid {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 3rem;
-    align-items: center;
+    grid-template-columns: 360px 1fr;
+    gap: 32px;
+    align-items: flex-start;
   }
 
-  @media (max-width: 991px) {
-    .testimonials-grid {
-      grid-template-columns: 1fr;
-    }
+  /* Stat Highlight Card */
+  .stat-highlight-card {
+    background: var(--color-wine);
+    border: 1px solid var(--color-wine-dark);
+    border-radius: var(--radius-lg);
+    padding: 38px 32px;
+    color: #ffffff;
+    box-shadow: var(--shadow-card);
   }
 
-  .satisfaction-card {
-    padding: 3rem;
-    background: #FFFFFF;
-  }
-
-  .satisfaction-heading {
-    font-size: 2.25rem;
+  .highlight-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-peach);
     font-weight: 700;
-    margin: 1rem 0;
-    color: var(--color-primary);
+    margin-bottom: 14px;
   }
 
-  .satisfaction-subtext {
-    color: var(--color-text-muted);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-
-  .satisfaction-stat-box {
-    background: var(--color-brand-subtle);
-    border-left: 4px solid var(--color-brand);
-    padding: 1.25rem 1.5rem;
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  }
-
-  .satisfaction-percentage {
+  .highlight-big {
     font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-brand);
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: var(--color-peach);
     line-height: 1;
-    margin-bottom: 0.25rem;
+    margin-bottom: 6px;
   }
 
-  .satisfaction-label {
-    font-size: 0.9rem;
+  .highlight-tag {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+
+  .highlight-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-peach-light);
+    margin-bottom: 24px;
+  }
+
+  .satisfaction-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 200, 174, 0.3);
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    color: var(--color-peach);
     font-weight: 600;
-    color: var(--color-primary);
   }
 
-  /* Right Cards */
-  .testimonials-cards-wrap {
+  /* Quotes Column */
+  .quotes-column {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 18px;
   }
 
-  .testimonial-card {
-    padding: 1.75rem;
-    background: #FFFFFF;
+  .quote-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-vellum-border);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition-normal);
   }
 
-  .rating-stars {
-    color: var(--color-accent);
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
+  .quote-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
   }
 
-  .testimonial-quote {
-    font-size: 1.02rem;
-    line-height: 1.6;
-    color: var(--color-text);
-    font-style: italic;
-    margin-bottom: 1.25rem;
-  }
-
-  .testimonial-author {
+  .quote-top {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: space-between;
+    margin-bottom: 14px;
   }
 
-  .author-avatar-initials {
-    width: 40px;
-    height: 40px;
+  .quote-stars {
+    color: #f59e0b;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+  }
+
+  .quote-body {
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .quote-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px dashed var(--color-vellum-border);
+    padding-top: 12px;
+  }
+
+  .author-circle {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: var(--color-primary);
-    color: #FFFFFF;
+    background: var(--color-peach-light);
+    color: var(--color-wine);
+    font-weight: 800;
+    font-size: 0.95rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-
-  .author-details {
-    display: flex;
-    flex-direction: column;
+    border: 1px solid rgba(255, 200, 174, 0.6);
   }
 
   .author-name {
+    display: block;
+    font-size: 0.92rem;
     font-weight: 700;
-    color: var(--color-primary);
-    font-size: 0.95rem;
+    color: var(--color-text-main);
   }
 
-  .author-role {
-    font-size: 0.8rem;
+  .author-board {
+    display: block;
+    font-size: 0.76rem;
     color: var(--color-text-muted);
+  }
+
+  @media (max-width: 900px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

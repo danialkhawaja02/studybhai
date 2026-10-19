@@ -1,70 +1,84 @@
 ---
+// src/components/MarqueeBanner.astro
+const BOARDS = [
+  'BISE Lahore',
+  'BISE Rawalpindi',
+  'BISE Gujranwala',
+  'BISE Faisalabad',
+  'BISE Multan',
+  'BISE Sargodha',
+  'BISE Sahiwal',
+  'BISE Bahawalpur',
+  'Federal Board (FBISE)',
+  'Punjab Curriculum & Textbook Board (PCTB)'
+];
 ---
 
-<div class="marquee-section">
-  <div class="marquee-container">
+<div class="cadmus-marquee-wrap">
+  <div class="marquee-inner">
     <div class="marquee-track">
-      <div class="marquee-item">
-        <span class="marquee-text">PROVIDING AMAZING ONLINE COURSES</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <div class="marquee-item">
-        <span class="marquee-text">BRINGING YOU OUTSTANDING EDUCATION</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <div class="marquee-item">
-        <span class="marquee-text">PUNJAB & FEDERAL BOARD SYLLABUS</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <div class="marquee-item">
-        <span class="marquee-text">100% FREE DIGITAL TEXTBOOKS & NOTES</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <!-- Duplicate for infinite seamless scroll -->
-      <div class="marquee-item">
-        <span class="marquee-text">PROVIDING AMAZING ONLINE COURSES</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <div class="marquee-item">
-        <span class="marquee-text">BRINGING YOU OUTSTANDING EDUCATION</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <div class="marquee-item">
-        <span class="marquee-text">PUNJAB & FEDERAL BOARD SYLLABUS</span>
-        <span class="marquee-dot">✦</span>
-      </div>
-      <div class="marquee-item">
-        <span class="marquee-text">100% FREE DIGITAL TEXTBOOKS & NOTES</span>
-        <span class="marquee-dot">✦</span>
-      </div>
+      {BOARDS.concat(BOARDS).map(board => (
+        <div class="marquee-item">
+          <span class="board-dot"></span>
+          <span class="board-name">{board}</span>
+        </div>
+      ))}
     </div>
   </div>
 </div>
 
 <style>
-  .marquee-section {
-    background: #059669;
-    padding: 1rem 0;
+  .cadmus-marquee-wrap {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-vellum-border);
+    border-bottom: 1px solid var(--color-vellum-border);
+    padding: 14px 0;
     overflow: hidden;
+  }
+
+  .marquee-inner {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 36px;
+    animation: scroll 40s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
   }
 
   .marquee-item {
     display: inline-flex;
     align-items: center;
-    gap: 2rem;
-    padding-right: 2rem;
-  }
-
-  .marquee-text {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 700;
+    gap: 10px;
+    color: var(--color-text-main);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
   }
 
-  .marquee-dot {
-    color: #FCD34D;
-    font-size: 1rem;
+  .board-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-wine);
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none !important;
+    }
   }
 </style>

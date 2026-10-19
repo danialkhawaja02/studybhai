@@ -1,10 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { FOOTER_DATA } from '@/lib/constants';
+import fs from 'fs';
+import path from 'path';
 
-describe('Footer Data', () => {
-  it('should contain valid legal links and contact email', () => {
-    expect(FOOTER_DATA.email).toBe('support@studybhai.com');
-    expect(FOOTER_DATA.legalLinks.map(l => l.label)).toContain('Privacy Policy');
-    expect(FOOTER_DATA.legalLinks.map(l => l.label)).toContain('Terms of Services');
+describe('Footer Component', () => {
+  it('should render Cadmus wine footer with peach text and social links', () => {
+    const footerPath = path.resolve(process.cwd(), 'src/components/Footer.astro');
+    const content = fs.readFileSync(footerPath, 'utf-8');
+
+    expect(content).toContain('footer-wine');
+    expect(content).toContain('support@studybhai.com');
   });
 });

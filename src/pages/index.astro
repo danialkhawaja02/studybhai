@@ -1,4 +1,5 @@
 ---
+// src/pages/index.astro
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -24,27 +25,29 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
 >
   <Header slot="header" />
 
-  <!-- Hero Banner -->
+  <!-- Cadmus Wine Hero with 4-Card Floating Showcase -->
   <Hero />
 
-  <!-- Featured Notes & Revision Section -->
-  <section class="home-section" id="featured-resources">
+  <!-- Section 1: Top Chapter Notes on Warm Parchment -->
+  <section class="cadmus-section" id="featured-notes">
     <div class="container">
-      <div class="section-title-row">
+      <div class="section-header-row">
         <div>
-          <span class="badge badge-brand">Exam Focused</span>
-          <h2 class="section-heading">Top Quality Chapter Notes</h2>
-          <p class="section-desc">Comprehensive chapter-wise revision notes with solved board questions.</p>
+          <span class="badge-pill badge-green">Exam Focused</span>
+          <h2 class="section-title">
+            Top Quality <span class="italic-serif">Chapter Notes</span>
+          </h2>
+          <p class="section-lead">Comprehensive chapter-wise revision notes prepared by board position holders.</p>
         </div>
-        <a href="/notes/" class="btn btn-outline">
+        <a href="/notes/" class="btn-cadmus-outline">
           <span>View All Notes</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
       </div>
 
-      <div class="grid-3col">
+      <div class="cards-grid-3">
         {featuredNotes.map((post) => (
           <ResourceCard post={post} />
         ))}
@@ -52,27 +55,29 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     </div>
   </section>
 
-  <!-- Value Propositions & Feature Highlights -->
+  <!-- Section 2: Cadmus Value Propositions & Feature Highlights on Light Peach Tint -->
   <FeatureGrid />
 
-  <!-- Featured PTB Textbooks Section -->
-  <section class="home-section bg-surface">
+  <!-- Section 3: Official PTB Board Textbooks on Warm Parchment -->
+  <section class="cadmus-section">
     <div class="container">
-      <div class="section-title-row">
+      <div class="section-header-row">
         <div>
-          <span class="badge badge-gold">Official Curriculum</span>
-          <h2 class="section-heading">Official PTB Board Textbooks</h2>
-          <p class="section-desc">Download complete Punjab Curriculum & Textbook Board (PTB) digital books.</p>
+          <span class="badge-pill badge-peach">Official Curriculum</span>
+          <h2 class="section-title">
+            Punjab Board <span class="italic-serif">Official Textbooks</span>
+          </h2>
+          <p class="section-lead">Download high-resolution Punjab Curriculum & Textbook Board (PCTB) digital books.</p>
         </div>
-        <a href="/books/" class="btn btn-outline">
+        <a href="/books/" class="btn-cadmus-outline">
           <span>Explore All Textbooks</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
       </div>
 
-      <div class="grid-3col">
+      <div class="cards-grid-3">
         {featuredBooks.map((post) => (
           <ResourceCard post={post} />
         ))}
@@ -80,30 +85,32 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     </div>
   </section>
 
-  <!-- Animated Marquee Banner -->
+  <!-- Section 4: Cadmus Animated Marquee Banner -->
   <MarqueeBanner />
 
-  <!-- Student Feedback / Testimonials -->
+  <!-- Section 5: Student Feedback & Testimonials -->
   <Testimonials />
 
-  <!-- Latest Guides & Scholarships -->
-  <section class="home-section">
+  <!-- Section 6: Latest Guides & Scholarships -->
+  <section class="cadmus-section">
     <div class="container">
-      <div class="section-title-row">
+      <div class="section-header-row">
         <div>
-          <span class="badge badge-brand">Latest Updates</span>
-          <h2 class="section-heading">Our Latest Guides & Scholarships</h2>
-          <p class="section-desc">Preparation procedures for USAT, HEC entrance tests, and study abroad funding.</p>
+          <span class="badge-pill badge-pink">Guidance & Funding</span>
+          <h2 class="section-title">
+            University Guides & <span class="italic-serif">Scholarships</span>
+          </h2>
+          <p class="section-lead">Application roadmaps for USAT, HEC entrance tests, and European fully-funded grants.</p>
         </div>
-        <a href="/guides/" class="btn btn-outline">
+        <a href="/guides/" class="btn-cadmus-outline">
           <span>Explore All Guides</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
       </div>
 
-      <div class="grid-3col">
+      <div class="cards-grid-3">
         {latestGuides.map((post) => (
           <ResourceCard post={post} />
         ))}
@@ -111,40 +118,65 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     </div>
   </section>
 
+  <!-- Cadmus Wine Footer -->
   <Footer slot="footer" />
 </Layout>
 
 <style>
-  .home-section {
-    padding: 5rem 0;
+  .cadmus-section {
+    padding: 85px 0;
+    background-color: var(--color-bg-parchment);
   }
 
-  .bg-surface {
-    background: #FFFFFF;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .section-title-row {
+  .section-header-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 3rem;
+    margin-bottom: 40px;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 20px;
   }
 
-  .section-heading {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin: 0.65rem 0 0.35rem 0;
-    color: var(--color-primary);
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    margin: 8px 0 6px 0;
+    color: var(--color-text-main);
     letter-spacing: -0.02em;
+    line-height: 1.15;
   }
 
-  .section-desc {
+  .section-title .italic-serif {
+    color: var(--color-wine);
+  }
+
+  .section-lead {
     color: var(--color-text-muted);
     font-size: 1.05rem;
     margin-bottom: 0;
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  .cards-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+
+  @media (max-width: 1024px) {
+    .cards-grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .cards-grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .cadmus-section {
+      padding: 60px 0;
+    }
   }
 </style>
