@@ -18,25 +18,26 @@
   --color-wine-dark: #131738;
   --color-wine-hover: #555de3;
   
-  --color-bg-parchment: #fcf7ef;
-  --color-surface: #fffdfa;
+  /* Clean Background & Surface System */
+  --color-bg-parchment: #ffffff;
+  --color-surface: #ffffff;
   --color-surface-pure: #ffffff;
   
-  --color-peach: #ffc8ae;
-  --color-peach-light: #ffe7db;
-  --color-vellum-border: #cfc0b0;
+  --color-peach: #555de3;
+  --color-peach-light: #f0f3fa;
+  --color-vellum-border: #e2e8f0;
   
-  --color-text-main: #04191f;
-  --color-text-muted: #5e6b6e;
-  --color-text-light: #8e9a9d;
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
   --color-text-white: #ffffff;
 
-  /* Pastel Tag System */
-  --color-tag-pink: #ffc3f0;
-  --color-tag-blue: #b6dbff;
-  --color-tag-green: #d1e375;
-  --color-tag-lavender: #c5c5ff;
-  --color-tag-yellow: #ffe388;
+  /* Modern Clean Tag System (No Pink/Peach) */
+  --color-tag-pink: #eef0fd;
+  --color-tag-blue: #e0f2fe;
+  --color-tag-green: #dcfce7;
+  --color-tag-lavender: #f3e8ff;
+  --color-tag-yellow: #fef9c3;
 
   /* Backward Compatibility Aliases */
   --color-primary: #1e2454;
@@ -45,11 +46,11 @@
   --color-brand: #555de3;
   --color-brand-hover: #434bc9;
   --color-accent: #555de3;
-  --color-border: #cfc0b0;
-  --color-border-subtle: #e8ded4;
-  --color-bg: #fcf7ef;
-  --color-bg-alt: #ffe7db;
-  --color-text: #04191f;
+  --color-border: #e2e8f0;
+  --color-border-subtle: #f1f5f9;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f0f3fa;
+  --color-text: #0f172a;
 
   /* Typography */
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
@@ -63,11 +64,11 @@
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Shadows */
+  /* Modern Crisp Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-cadmus: 1px 8px 16px 0 hsla(26, 28%, 75%, 0.18);
-  --shadow-card: 1px 8px 12px hsla(31, 24%, 75%, 0.14);
-  --shadow-hover: 1px 14px 24px hsla(31, 24%, 70%, 0.22);
+  --shadow-cadmus: 0 4px 20px -2px rgba(19, 23, 56, 0.07);
+  --shadow-card: 0 4px 16px -2px rgba(19, 23, 56, 0.06);
+  --shadow-hover: 0 12px 28px -4px rgba(19, 23, 56, 0.12);
   --shadow-brand: 0 10px 25px -5px rgba(30, 36, 84, 0.35);
   --shadow-blue: 0 8px 20px -3px rgba(85, 93, 227, 0.35);
   --shadow-wine: 0 10px 25px -5px rgba(30, 36, 84, 0.35);
@@ -179,7 +180,7 @@ button, input, select, textarea {
   border-style: dashed;
 }
 
-/* Cadmus Pastel Badges */
+/* Modern Badges */
 .badge-pill {
   display: inline-flex;
   align-items: center;
@@ -194,12 +195,12 @@ button, input, select, textarea {
   white-space: nowrap;
 }
 
-.badge-pink { background-color: var(--color-tag-pink); color: #6e004a; }
-.badge-blue { background-color: var(--color-tag-blue); color: #0a3d66; }
-.badge-green { background-color: var(--color-tag-green); color: #3b4e05; }
-.badge-lavender { background-color: var(--color-tag-lavender); color: #201a61; }
-.badge-yellow { background-color: var(--color-tag-yellow); color: #5c4400; }
-.badge-peach { background-color: var(--color-peach-light); color: var(--color-navy); }
+.badge-pink { background-color: #eef0fd; color: #3d44b8; border: 1px solid #d8dcfa; }
+.badge-blue { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.badge-green { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.badge-lavender { background-color: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+.badge-yellow { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+.badge-peach { background-color: #f0f3fa; color: #1e2454; border: 1px solid #e2e8f0; }
 
 /* Button System */
 .btn-cadmus-primary {

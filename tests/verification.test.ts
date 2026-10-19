@@ -37,14 +37,14 @@ describe('Full Site Verification', () => {
     expect(css).toContain('--color-royal: #555de3;');
     expect(css).toContain('--color-wine: #1e2454;');
     expect(css).toContain('--color-wine-dark: #131738;');
-    expect(css).toContain('--color-bg-parchment: #fcf7ef;');
-    expect(css).toContain('--color-peach: #ffc8ae;');
-    expect(css).toContain('--color-vellum-border: #cfc0b0;');
+    expect(css).toContain('--color-bg-parchment: #ffffff;');
+    expect(css).toContain('--color-peach: #555de3;');
+    expect(css).toContain('--color-vellum-border: #e2e8f0;');
     expect(css).toContain('STIX Two Text');
     expect(css).toContain('Space Grotesk');
   });
 
-  it('should verify all hub archive headers use Cadmus wine gradient and peach breadcrumbs', () => {
+  it('should verify all hub archive headers use official navy gradient', () => {
     const hubFiles = [
       'src/pages/books/index.astro',
       'src/pages/books/[grade].astro',
@@ -61,7 +61,6 @@ describe('Full Site Verification', () => {
       const content = fs.readFileSync(filePath, 'utf-8');
       expect(content).toContain('var(--color-wine)');
       expect(content).toContain('var(--color-wine-dark)');
-      expect(content).toContain('var(--color-peach)');
       // Verify obsolete emerald colors are completely gone
       expect(content).not.toContain('#1F2E2B');
       expect(content).not.toContain('#34D399');

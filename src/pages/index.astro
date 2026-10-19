@@ -8,6 +8,7 @@ import ResourceCard from '@/components/ResourceCard.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import MarqueeBanner from '@/components/MarqueeBanner.astro';
 import Testimonials from '@/components/Testimonials.astro';
+import WhatsAppBanner from '@/components/WhatsAppBanner.astro';
 import { getAllPosts } from '@/lib/wordpress';
 
 // Fetch all posts for home page
@@ -63,7 +64,7 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     <div class="container">
       <div class="section-header-row">
         <div>
-          <span class="badge-pill badge-peach">Official Curriculum</span>
+          <span class="badge-pill badge-blue">Official Curriculum</span>
           <h2 class="section-title">
             Punjab Board <span class="italic-serif">Official Textbooks</span>
           </h2>
@@ -85,7 +86,7 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     </div>
   </section>
 
-  <!-- Section 4: Cadmus Animated Marquee Banner -->
+  <!-- Section 4: Animated Board Marquee Banner -->
   <MarqueeBanner />
 
   <!-- Section 5: Student Feedback & Testimonials -->
@@ -96,7 +97,7 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     <div class="container">
       <div class="section-header-row">
         <div>
-          <span class="badge-pill badge-pink">Guidance & Funding</span>
+          <span class="badge-pill badge-lavender">Guidance & Funding</span>
           <h2 class="section-title">
             University Guides & <span class="italic-serif">Scholarships</span>
           </h2>
@@ -118,7 +119,10 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
     </div>
   </section>
 
-  <!-- Cadmus Wine Footer -->
+  <!-- Section 7: WhatsApp & Help Action Banner (Direct from Brand Design) -->
+  <WhatsAppBanner />
+
+  <!-- Navy Brand Footer -->
   <Footer slot="footer" />
 </Layout>
 
@@ -148,7 +152,7 @@ const latestGuides = allPosts.filter(p => p.categories.includes('student-guides'
   }
 
   .section-title .italic-serif {
-    color: var(--color-wine);
+    color: var(--color-brand-blue, #555de3);
   }
 
   .section-lead {

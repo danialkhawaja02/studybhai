@@ -11,12 +11,12 @@ describe('Cadmus Design System Tokens', () => {
     expect(cssContent).toContain('--color-navy: #1e2454');
     expect(cssContent).toContain('--color-royal: #555de3');
     expect(cssContent).toContain('--color-wine: #1e2454');
-    expect(cssContent).toContain('--color-bg-parchment: #fcf7ef');
-    expect(cssContent).toContain('--color-peach: #ffc8ae');
-    expect(cssContent).toContain('--color-vellum-border: #cfc0b0');
-    expect(cssContent).toContain('--color-tag-blue: #b6dbff');
-    expect(cssContent).toContain('--color-tag-green: #d1e375');
-    expect(cssContent).toContain('--color-tag-pink: #ffc3f0');
+    expect(cssContent).toContain('--color-bg-parchment: #ffffff');
+    expect(cssContent).toContain('--color-peach: #555de3');
+    expect(cssContent).toContain('--color-vellum-border: #e2e8f0');
+    expect(cssContent).toContain('--color-tag-blue: #e0f2fe');
+    expect(cssContent).toContain('--color-tag-green: #dcfce7');
+    expect(cssContent).toContain('--color-tag-pink: #eef0fd');
 
     // Font imports & utilities
     expect(cssContent).toContain('STIX+Two+Text');
