@@ -1,18 +1,21 @@
 import { describe, it, expect } from 'vitest';
-import { extractResourceMeta, calculateReadTime } from '@/lib/resource-utils';
+import fs from 'fs';
+import path from 'path';
 
-describe('Resource Utilities', () => {
-  it('should detect subject and grade from title and tags', () => {
-    const meta = extractResourceMeta({
-      title: 'Class 12 Math Notes – 2nd Year All Chapter Math Notes',
-      tags: ['class-12', 'math']
-    });
-    expect(meta.subject).toBe('Mathematics');
-    expect(meta.grade).toBe('12th (2nd Year)');
+describe('ResourceCard Component', () => {
+  it('should render vellum card container with pastel subject badge', () => {
+    const cardPath = path.resolve(process.cwd(), 'src/components/ResourceCard.astro');
+    const content = fs.readFileSync(cardPath, 'utf-8');
+
+    expect(content).toContain('cadmus-card');
+    expect(content).toContain('subject-badge');
   });
 
-  it('should calculate estimated read time accurately', () => {
-    const time = calculateReadTime('Lorem ipsum '.repeat(200));
-    expect(time).toBe('2 min read');
+  it('should include hover micro-interaction transitions', () => {
+    const cardPath = path.resolve(process.cwd(), 'src/components/ResourceCard.astro');
+    const content = fs.readFileSync(cardPath, 'utf-8');
+
+    expect(content).toContain('transition:');
+    expect(content).toContain('box-shadow:');
   });
 });

@@ -1,31 +1,31 @@
 ---
+// src/components/ResourceCard.astro
 import type { Post } from '@/types';
-import { extractResourceMeta } from '@/lib/resource-utils';
+import { extractPostMetadata } from '@/lib/resource-utils';
 
 interface Props {
   post: Post;
-  showCategory?: boolean;
 }
 
-const { post, showCategory = true } = Astro.props;
-const meta = post.meta || extractResourceMeta({ title: post.title, tags: post.tags, content: post.content });
+const { post } = Astro.props;
+const meta = extractPostMetadata(post);
 
-// Subject badge color scheme
-const getSubjectColorClass = (subject: string) => {
+// Map subjects to Cadmus pastel pill classes
+const getPastelTagClass = (subject: string) => {
   const s = subject.toLowerCase();
-  if (s.includes('math')) return 'subject-math';
-  if (s.includes('physic')) return 'subject-physics';
-  if (s.includes('chem')) return 'subject-chemistry';
-  if (s.includes('bio')) return 'subject-biology';
-  if (s.includes('computer')) return 'subject-computer';
-  if (s.includes('scholarship')) return 'subject-scholarship';
-  return 'subject-general';
+  if (s.includes('math')) return 'badge-yellow';
+  if (s.includes('physic')) return 'badge-blue';
+  if (s.includes('chem')) return 'badge-yellow';
+  if (s.includes('bio')) return 'badge-green';
+  if (s.includes('english') || s.includes('urdu') || s.includes('pak')) return 'badge-lavender';
+  if (s.includes('scholarship') || s.includes('guide')) return 'badge-pink';
+  return 'badge-peach';
 };
 ---
 
-<article class="resource-card card-premium">
-  <a href={`/${post.slug}/`} class="card-link" aria-label={`View ${post.title}`}>
-    <!-- Thumbnail Preview / Cover -->
+<article class="cadmus-card vellum-card">
+  <a href={`/${post.slug}/`} class="card-link" aria-label={`Read ${post.title}`}>
+    <!-- Thumbnail Media -->
     <div class="card-media">
       {post.featuredImage ? (
         <img 
@@ -36,39 +36,39 @@ const getSubjectColorClass = (subject: string) => {
           class="card-img"
         />
       ) : (
-        <div class={`card-media-fallback ${getSubjectColorClass(meta.subject)}`}>
+        <div class="card-media-fallback">
           <div class="fallback-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
             </svg>
           </div>
-          <span class="fallback-subject">{meta.subject}</span>
+          <span class="fallback-text">{meta.subject}</span>
         </div>
       )}
 
-      <!-- Subject & Grade Badges floating on card -->
-      <div class="media-badges">
-        <span class={`badge ${getSubjectColorClass(meta.subject)}`}>
+      <!-- Badges -->
+      <div class="card-badges">
+        <span class={`badge-pill ${getPastelTagClass(meta.subject)} subject-badge`}>
           {meta.subject}
         </span>
-        <span class="badge badge-grade">
+        <span class="badge-pill badge-peach">
           {meta.grade}
         </span>
       </div>
     </div>
 
-    <!-- Content Area -->
+    <!-- Body -->
     <div class="card-body">
-      <div class="meta-row">
-        <span class="read-time">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <div class="card-meta">
+        <span class="meta-time">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
           {meta.readTime}
         </span>
-        <span class="board-badge">{meta.board?.split(' ')[0] || 'PTB'}</span>
+        <span class="meta-board">{meta.board?.split(' ')[0] || 'PCTB'} Verified</span>
       </div>
 
       <h3 class="card-title">
@@ -76,25 +76,25 @@ const getSubjectColorClass = (subject: string) => {
       </h3>
 
       <p class="card-excerpt">
-        {post.excerpt.length > 120 ? `${post.excerpt.substring(0, 120)}...` : post.excerpt}
+        {post.excerpt.length > 110 ? `${post.excerpt.substring(0, 110)}...` : post.excerpt}
       </p>
 
-      <!-- Card Footer -->
+      <!-- Footer -->
       <div class="card-footer">
-        <div class="author-info">
+        <div class="card-author">
           <img 
             src={post.author.avatar} 
             alt={post.author.name} 
-            class="author-avatar" 
-            width="24" 
-            height="24"
+            class="author-img" 
+            width="22" 
+            height="22"
             loading="lazy"
           />
-          <span class="author-name">{post.author.name}</span>
+          <span class="author-label">{post.author.name}</span>
         </div>
 
-        <span class="card-action-btn">
-          <span>Read & Download</span>
+        <span class="card-cta-btn">
+          <span>Get Free PDF</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -106,12 +106,22 @@ const getSubjectColorClass = (subject: string) => {
 </article>
 
 <style>
-  .resource-card {
+  .cadmus-card {
     display: flex;
     flex-direction: column;
     height: 100%;
-    position: relative;
-    background: #FFFFFF;
+    background: var(--color-surface);
+    border: 1px solid var(--color-vellum-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 1px 8px 12px hsla(31, 24%, 75%, 0.14);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    overflow: hidden;
+  }
+
+  .cadmus-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 1px 14px 24px hsla(31, 24%, 70%, 0.22);
+    border-color: rgba(88, 12, 29, 0.4);
   }
 
   .card-link {
@@ -122,12 +132,13 @@ const getSubjectColorClass = (subject: string) => {
     color: inherit;
   }
 
-  /* Media Thumbnail */
+  /* Media */
   .card-media {
     position: relative;
     aspect-ratio: 16 / 9;
-    background: #E2E8F0;
+    background: #f4ecdf;
     overflow: hidden;
+    border-bottom: 1px solid var(--color-vellum-border);
   }
 
   .card-img {
@@ -137,131 +148,92 @@ const getSubjectColorClass = (subject: string) => {
     transition: transform var(--transition-normal);
   }
 
-  .resource-card:hover .card-img {
-    transform: scale(1.04);
+  .cadmus-card:hover .card-img {
+    transform: scale(1.03);
   }
 
   .card-media-fallback {
     width: 100%;
     height: 100%;
+    background: linear-gradient(135deg, #f5ebd8 0%, #ebe0cb 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 6px;
+    color: var(--color-wine);
   }
 
   .fallback-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
+    opacity: 0.8;
   }
 
-  .fallback-subject {
-    color: #FFFFFF;
+  .fallback-text {
+    font-size: 0.85rem;
     font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-wine);
   }
 
-  .media-badges {
+  .card-badges {
     position: absolute;
-    bottom: 0.75rem;
-    left: 0.75rem;
+    bottom: 10px;
+    left: 10px;
     display: flex;
-    gap: 0.4rem;
+    gap: 6px;
     z-index: 2;
-  }
-
-  .badge-grade {
-    background: rgba(15, 23, 42, 0.85);
-    color: #FFFFFF;
-    backdrop-filter: blur(4px);
-  }
-
-  /* Subject Color Accents */
-  .subject-math {
-    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-    color: #FFFFFF;
-  }
-  .subject-physics {
-    background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
-    color: #FFFFFF;
-  }
-  .subject-chemistry {
-    background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
-    color: #FFFFFF;
-  }
-  .subject-biology {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    color: #FFFFFF;
-  }
-  .subject-computer {
-    background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
-    color: #FFFFFF;
-  }
-  .subject-scholarship {
-    background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
-    color: #FFFFFF;
-  }
-  .subject-general {
-    background: linear-gradient(135deg, #475569 0%, #334155 100%);
-    color: #FFFFFF;
   }
 
   /* Body */
   .card-body {
-    padding: 1.25rem;
+    padding: 18px 20px 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
 
-  .meta-row {
+  .card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     color: var(--color-text-muted);
-    margin-bottom: 0.65rem;
+    margin-bottom: 10px;
   }
 
-  .read-time {
+  .meta-time {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 4px;
   }
 
-  .board-badge {
+  .meta-board {
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-brand);
+    color: var(--color-wine);
+    letter-spacing: 0.03em;
   }
 
   .card-title {
-    font-size: 1.15rem;
+    font-family: var(--font-heading);
+    font-size: 1.12rem;
     font-weight: 700;
     line-height: 1.35;
-    margin-bottom: 0.65rem;
-    color: var(--color-primary);
+    margin-bottom: 8px;
+    color: var(--color-text-main);
     transition: color var(--transition-fast);
   }
 
-  .resource-card:hover .card-title {
-    color: var(--color-brand);
+  .cadmus-card:hover .card-title {
+    color: var(--color-wine);
   }
 
   .card-excerpt {
     font-size: 0.88rem;
     line-height: 1.55;
     color: var(--color-text-muted);
-    margin-bottom: 1.25rem;
+    margin-bottom: 18px;
     flex: 1;
   }
 
@@ -270,38 +242,37 @@ const getSubjectColorClass = (subject: string) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid var(--color-border);
-    padding-top: 0.85rem;
+    border-top: 1px dashed var(--color-vellum-border);
+    padding-top: 12px;
   }
 
-  .author-info {
+  .card-author {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 6px;
   }
 
-  .author-avatar {
+  .author-img {
     border-radius: 50%;
     object-fit: cover;
   }
 
-  .author-name {
+  .author-label {
     font-size: 0.78rem;
-    font-weight: 500;
     color: var(--color-text-muted);
   }
 
-  .card-action-btn {
+  .card-cta-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 4px;
     font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--color-brand);
+    font-weight: 700;
+    color: var(--color-wine);
     transition: transform var(--transition-fast);
   }
 
-  .resource-card:hover .card-action-btn {
+  .cadmus-card:hover .card-cta-btn {
     transform: translateX(3px);
   }
 </style>
