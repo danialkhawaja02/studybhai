@@ -1,0 +1,93 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts } from '@/lib/wordpress';
+
+const allPosts = await getAllPosts();
+const pastPapers = allPosts.filter(p => p.categories.includes('past-papers') || p.tags.includes('past-papers'));
+---
+
+<Layout 
+  title="5-Year Solved Past Papers (All BISE Boards) - Study Bhai"
+  description="Download previous 5-year solved board examination past papers for Matric (Class 9 & 10) and Intermediate (Class 11 & 12) across Lahore, Gujranwala, Rawalpindi, and Federal boards."
+>
+  <Header slot="header" />
+
+  <div class="archive-header">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> <strong>Past Papers</strong>
+      </nav>
+      <h1 class="archive-title">Solved Board Past Papers</h1>
+      <p class="archive-subtitle">
+        Previous 5 to 10 year solved and unsolved past papers for all Punjab boards and Federal Board (FBISE).
+      </p>
+    </div>
+  </div>
+
+  <section class="archive-content">
+    <div class="container">
+      {pastPapers.length > 0 ? (
+        <div class="grid-3col">
+          {pastPapers.map((paper) => (
+            <ResourceCard post={paper} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card-premium">
+          <h3>Past papers directory</h3>
+          <p>Please browse all resources or search by subject.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .archive-header {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .archive-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 680px;
+    margin-bottom: 0;
+  }
+
+  .archive-content {
+    padding: 4.5rem 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+</style>

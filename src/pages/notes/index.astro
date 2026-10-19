@@ -1,0 +1,121 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts } from '@/lib/wordpress';
+import { GRADE_FILTERS } from '@/lib/constants';
+
+const allPosts = await getAllPosts();
+const notes = allPosts.filter(p => p.categories.includes('notes') || p.categories.some(c => c.includes('notes')));
+---
+
+<Layout 
+  title="All Class Study Notes & Solutions - Study Bhai"
+  description="High-quality revision notes, chapter formulas, and solved exercises for Class 9, Class 10, Class 11 (1st Year), and Class 12 (2nd Year) students in Pakistan."
+>
+  <Header slot="header" />
+
+  <div class="archive-header">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> <strong>Notes</strong>
+      </nav>
+      <h1 class="archive-title">Chapter-wise Study Notes</h1>
+      <p class="archive-subtitle">
+        Exam-focused study notes, formula cheat sheets, and solved textbook exercises for board examination success.
+      </p>
+
+      <!-- Grade Filter Bar -->
+      <div class="filter-pills-row">
+        <a href="/notes/" class="grade-pill active">All Classes</a>
+        {GRADE_FILTERS.map((g) => (
+          <a href={`/notes/${g.slug}/`} class="grade-pill">
+            {g.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <section class="archive-content">
+    <div class="container">
+      {notes.length > 0 ? (
+        <div class="grid-3col">
+          {notes.map((note) => (
+            <ResourceCard post={note} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card-premium">
+          <h3>No notes found</h3>
+          <p>Please browse all resources or search our database.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .archive-header {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .archive-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  .filter-pills-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-pills-row .grade-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+  }
+
+  .filter-pills-row .grade-pill.active {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+
+  .archive-content {
+    padding: 4.5rem 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+</style>

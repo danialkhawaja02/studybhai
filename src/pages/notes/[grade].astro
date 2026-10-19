@@ -1,0 +1,138 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts } from '@/lib/wordpress';
+import { GRADE_FILTERS } from '@/lib/constants';
+import { getGradeStaticPaths } from '@/lib/resource-utils';
+
+export function getStaticPaths() {
+  return getGradeStaticPaths();
+}
+
+const { grade } = Astro.params;
+const { gradeName, gradeNum } = Astro.props;
+
+const allPosts = await getAllPosts();
+const gradeNotes = allPosts.filter(p => {
+  const isNote = p.categories.includes('notes') || p.categories.some(c => c.includes('notes'));
+  const matchesGrade = p.categories.includes(`${grade}-notes`) || 
+                       p.categories.includes(`${gradeNum}th-class-notes`) ||
+                       p.tags.includes(`class-${gradeNum}`) || 
+                       p.title.toLowerCase().includes(`class ${gradeNum}`) ||
+                       p.title.toLowerCase().includes(`${gradeNum}th`);
+  return isNote && matchesGrade;
+});
+---
+
+<Layout 
+  title={`${gradeName} Revision Notes & Solutions - Study Bhai`}
+  description={`Download free verified ${gradeName} revision notes, solved exercises, MCQs, and formulas for Pakistani curriculum.`}
+>
+  <Header slot="header" />
+
+  <div class="archive-header">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> <a href="/notes/">Notes</a> <span>/</span> <strong>{gradeName}</strong>
+      </nav>
+      <h1 class="archive-title">{gradeName} Study Notes</h1>
+      <p class="archive-subtitle">
+        Curated chapter revision notes for {gradeName} students. Solved exercises, definitions, and short questions for high board exam marks.
+      </p>
+
+      <!-- Grade Filter Bar -->
+      <div class="filter-pills-row">
+        <a href="/notes/" class="grade-pill">All Classes</a>
+        {GRADE_FILTERS.map((g) => (
+          <a href={`/notes/${g.slug}/`} class={`grade-pill ${g.slug === grade ? 'active' : ''}`}>
+            {g.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <section class="archive-content">
+    <div class="container">
+      {gradeNotes.length > 0 ? (
+        <div class="grid-3col">
+          {gradeNotes.map((note) => (
+            <ResourceCard post={note} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card-premium">
+          <h3>Notes for {gradeName} are being compiled</h3>
+          <p>Please browse all notes or search our notes directory.</p>
+          <a href="/notes/" class="btn btn-primary" style="margin-top: 1rem;">View All Notes</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .archive-header {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .archive-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  .filter-pills-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-pills-row .grade-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+  }
+
+  .filter-pills-row .grade-pill.active {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+
+  .archive-content {
+    padding: 4.5rem 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+</style>

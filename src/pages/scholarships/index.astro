@@ -1,0 +1,93 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts } from '@/lib/wordpress';
+
+const allPosts = await getAllPosts();
+const scholarships = allPosts.filter(p => p.categories.includes('scholarships'));
+---
+
+<Layout 
+  title="Fully Funded Scholarships for Pakistani Students - Study Bhai"
+  description="Explore fully funded undergraduate, master's, and PhD scholarships for Pakistani students: HEC Stipendium Hungaricum, Turkiye Burslari, Chevening, and domestic talent awards."
+>
+  <Header slot="header" />
+
+  <div class="archive-header">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> <strong>Scholarships</strong>
+      </nav>
+      <h1 class="archive-title">Scholarships & Grants</h1>
+      <p class="archive-subtitle">
+        Verified procedures, eligibility criteria, and deadline alerts for government and international student scholarships.
+      </p>
+    </div>
+  </div>
+
+  <section class="archive-content">
+    <div class="container">
+      {scholarships.length > 0 ? (
+        <div class="grid-3col">
+          {scholarships.map((s) => (
+            <ResourceCard post={s} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card-premium">
+          <h3>No scholarships listed</h3>
+          <p>Please browse all student guides or check back shortly.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .archive-header {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .archive-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 680px;
+    margin-bottom: 0;
+  }
+
+  .archive-content {
+    padding: 4.5rem 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+</style>

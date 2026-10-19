@@ -1,0 +1,121 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts } from '@/lib/wordpress';
+import { GRADE_FILTERS } from '@/lib/constants';
+
+const allPosts = await getAllPosts();
+const books = allPosts.filter(p => p.categories.includes('ptb-books') || p.categories.some(c => c.includes('books')));
+---
+
+<Layout 
+  title="Punjab Board (PTB) Textbooks PDF Download - Study Bhai"
+  description="Download official Punjab Curriculum & Textbook Board (PTB) digital books in PDF format for Class 9, Class 10, Class 11 (1st Year), and Class 12 (2nd Year)."
+>
+  <Header slot="header" />
+
+  <div class="archive-header">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> <strong>Books</strong>
+      </nav>
+      <h1 class="archive-title">Official PTB Board Textbooks</h1>
+      <p class="archive-subtitle">
+        High-quality, curriculum-verified digitized PDF textbooks from the Punjab Curriculum and Textbook Board (PTB) for English and Urdu medium students.
+      </p>
+
+      <!-- Grade Filter Bar -->
+      <div class="filter-pills-row">
+        <a href="/books/" class="grade-pill active">All Classes</a>
+        {GRADE_FILTERS.map((g) => (
+          <a href={`/books/${g.slug}/`} class="grade-pill">
+            {g.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <section class="archive-content">
+    <div class="container">
+      {books.length > 0 ? (
+        <div class="grid-3col">
+          {books.map((book) => (
+            <ResourceCard post={book} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card-premium">
+          <h3>No textbooks found</h3>
+          <p>Check back shortly or search our database.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .archive-header {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .archive-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  .filter-pills-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-pills-row .grade-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+  }
+
+  .filter-pills-row .grade-pill.active {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+
+  .archive-content {
+    padding: 4.5rem 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts } from '@/lib/wordpress';
+
+const allPosts = await getAllPosts();
+const guides = allPosts.filter(p => p.categories.includes('student-guides') || p.categories.includes('scholarships'));
+---
+
+<Layout 
+  title="Student Preparation & Career Guides - Study Bhai"
+  description="Comprehensive student roadmaps, USAT preparation books, HEC entrance test guides, and university admission resources in Pakistan."
+>
+  <Header slot="header" />
+
+  <div class="archive-header">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> <strong>Student Guides</strong>
+      </nav>
+      <h1 class="archive-title">Student Guides & Roadmaps</h1>
+      <p class="archive-subtitle">
+        Expert admission tips, HEC test preparation procedures, and career guidance for college and university students.
+      </p>
+    </div>
+  </div>
+
+  <section class="archive-content">
+    <div class="container">
+      {guides.length > 0 ? (
+        <div class="grid-3col">
+          {guides.map((guide) => (
+            <ResourceCard post={guide} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card-premium">
+          <h3>No guides found</h3>
+          <p>Please browse all resources or check back shortly.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .archive-header {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .archive-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 680px;
+    margin-bottom: 0;
+  }
+
+  .archive-content {
+    padding: 4.5rem 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+</style>
