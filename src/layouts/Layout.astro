@@ -1,5 +1,6 @@
 ---
 import SEO from '@/components/SEO.astro';
+import SearchModal from '@/components/SearchModal.astro';
 import '@/styles/global.css';
 
 interface Props {
@@ -28,10 +29,11 @@ const { title, description, image, isArticle, datePublished, dateModified } = As
   </head>
   <body>
     <slot name="header" />
-    <main id="main-content" style="flex: 1;">
+    <main id="main-content" style="flex: 1;" data-pagefind-body>
       <slot />
     </main>
     <slot name="footer" />
     <slot name="modal" />
+    <SearchModal />
   </body>
 </html>
