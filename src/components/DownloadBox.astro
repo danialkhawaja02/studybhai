@@ -1,0 +1,177 @@
+---
+interface Props {
+  title: string;
+  fileSize?: string;
+  board?: string;
+  downloadUrl?: string;
+  grade?: string;
+}
+
+const {
+  title,
+  fileSize = '18.4 MB',
+  board = 'Punjab Curriculum & Textbook Board (PTB)',
+  downloadUrl = '#',
+  grade = 'HSSC / SSC'
+} = Astro.props;
+---
+
+<div class="download-box-wrapper card-premium">
+  <div class="download-box-header">
+    <div class="download-icon-box">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="12" y1="18" x2="12" y2="12"></line>
+        <line x1="9" y1="15" x2="15" y2="15"></line>
+      </svg>
+    </div>
+    <div class="download-header-info">
+      <div class="download-badge-row">
+        <span class="badge badge-brand">Official Curriculum</span>
+        <span class="badge badge-gold">Verified PDF</span>
+      </div>
+      <h3 class="download-title">{title}</h3>
+    </div>
+  </div>
+
+  <div class="download-meta-grid">
+    <div class="meta-item">
+      <span class="meta-label">Accreditation:</span>
+      <span class="meta-val">{board}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">File Format:</span>
+      <span class="meta-val">Digital PDF (Printable)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">File Size:</span>
+      <span class="meta-val">{fileSize}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Access Cost:</span>
+      <span class="meta-val text-free">100% Free</span>
+    </div>
+  </div>
+
+  <div class="download-action-row">
+    <a href={downloadUrl} class="btn btn-primary btn-lg download-btn" download>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      <span>Download Official PDF ({fileSize})</span>
+    </a>
+    <div class="safety-indicator">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      <span>Verified Virus-Free & Safe Direct Link</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .download-box-wrapper {
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .download-box-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .download-icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-md);
+    background: var(--color-brand-subtle);
+    color: var(--color-brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .download-header-info {
+    flex: 1;
+  }
+
+  .download-badge-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .download-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .download-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .download-meta-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .meta-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+  }
+
+  .meta-label {
+    color: var(--color-text-muted);
+  }
+
+  .meta-val {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .text-free {
+    color: var(--color-brand);
+  }
+
+  .download-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .download-btn {
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 4px 15px rgba(5, 150, 105, 0.35);
+  }
+
+  .safety-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--color-brand);
+    font-weight: 500;
+  }
+</style>
