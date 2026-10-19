@@ -30,6 +30,7 @@ const relatedPosts = allPosts
 // Check if this post is a multi-resource collection post (like "Class 10 Books PDF Download")
 const downloadLinkMatches = (post.content.match(/href="[^"]*(?:drive\.google\.com|export=download|\.pdf)[^"]*"/gi) || []);
 const isCollection = downloadLinkMatches.length > 2;
+const hasDownload = (post.meta.downloadUrl && post.meta.downloadUrl !== '#') || isCollection;
 ---
 
 <Layout 
@@ -91,22 +92,24 @@ const isCollection = downloadLinkMatches.length > 2;
     <div class="post-layout-grid">
       <!-- Main Content Article -->
       <article class="post-main-content">
-        <!-- Download Widget if applicable -->
-        <DownloadBox 
-          title={post.title}
-          fileSize={isCollection ? 'All Subjects Included' : post.meta.fileSize}
-          board={post.meta.board}
-          grade={post.meta.grade}
-          downloadUrl={isCollection ? '#books-list' : post.meta.downloadUrl}
-          isCollection={isCollection}
-          buttonText={isCollection ? 'Browse & Download All Books Below ↓' : undefined}
-        />
+        <!-- Download Widget (only rendered for downloadable books/notes or collections) -->
+        {hasDownload && (
+          <DownloadBox 
+            title={post.title}
+            fileSize={isCollection ? 'All Subjects Included' : post.meta.fileSize}
+            board={post.meta.board}
+            grade={post.meta.grade}
+            downloadUrl={isCollection ? '#books-list' : post.meta.downloadUrl}
+            isCollection={isCollection}
+            buttonText={isCollection ? 'Browse & Download All Books Below ↓' : undefined}
+          />
+        )}
 
         <!-- Rendered Post HTML -->
         <div class="entry-content typography-post" id="books-list" set:html={contentWithAnchors} />
 
-        <!-- Bottom Download Widget (only for single-resource posts) -->
-        {!isCollection && (
+        <!-- Bottom Download Widget (only for downloadable single-resource posts) -->
+        {hasDownload && !isCollection && (
           <DownloadBox 
             title={`Download ${post.title}`}
             fileSize={post.meta.fileSize}
