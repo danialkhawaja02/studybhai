@@ -33,8 +33,10 @@ describe('Full Site Verification', () => {
     const cssPath = path.resolve(process.cwd(), 'src/styles/global.css');
     const css = fs.readFileSync(cssPath, 'utf-8');
 
-    expect(css).toContain('--color-wine: #580c1d;');
-    expect(css).toContain('--color-wine-dark: #3d0714;');
+    expect(css).toContain('--color-navy: #1e2454;');
+    expect(css).toContain('--color-royal: #555de3;');
+    expect(css).toContain('--color-wine: #1e2454;');
+    expect(css).toContain('--color-wine-dark: #131738;');
     expect(css).toContain('--color-bg-parchment: #fcf7ef;');
     expect(css).toContain('--color-peach: #ffc8ae;');
     expect(css).toContain('--color-vellum-border: #cfc0b0;');

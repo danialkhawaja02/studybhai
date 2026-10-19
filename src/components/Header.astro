@@ -1,5 +1,7 @@
 ---
 // src/components/Header.astro
+import Logo from '@/components/Logo.astro';
+
 interface Props {
   currentPath?: string;
 }
@@ -18,17 +20,7 @@ const NAV_LINKS = [
   <div class="header-island">
     <!-- Brand Logo -->
     <a href="/" class="header-logo" aria-label="Study Bhai Home">
-      <div class="logo-emblem">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-0.5-.05"></path>
-          <path d="M6 2v20"></path>
-          <path d="M10 8h6"></path>
-          <path d="M10 12h4"></path>
-        </svg>
-      </div>
-      <div class="logo-text-block">
-        <span class="logo-title">Study<span class="logo-wine">Bhai</span></span>
-      </div>
+      <Logo variant="dark" size="sm" />
     </a>
 
     <!-- Desktop Navigation (De-congested 4 Links) -->
@@ -47,7 +39,7 @@ const NAV_LINKS = [
       </ul>
     </nav>
 
-    <!-- Header Actions (Search + Wine CTA) -->
+    <!-- Header Actions (Search + Royal Blue CTA) -->
     <div class="header-actions">
       <button type="button" class="search-trigger-pill" data-open-search aria-label="Search resources (Ctrl+K)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +73,7 @@ const NAV_LINKS = [
     <div class="drawer-overlay" id="mobile-drawer-overlay"></div>
     <div class="drawer-panel">
       <div class="drawer-header">
-        <span class="drawer-logo">Study<span>Bhai</span></span>
+        <Logo variant="dark" size="sm" />
         <button type="button" class="drawer-close-btn" id="mobile-drawer-close" aria-label="Close menu">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -211,7 +203,7 @@ const NAV_LINKS = [
 
   .nav-link:hover,
   .nav-link.is-active {
-    color: var(--color-wine);
+    color: var(--color-brand-blue, #555de3);
   }
 
   .nav-link::after {
@@ -221,7 +213,7 @@ const NAV_LINKS = [
     left: 0;
     width: 0%;
     height: 2px;
-    background-color: var(--color-wine);
+    background-color: var(--color-brand-blue, #555de3);
     transition: width var(--transition-normal);
   }
 
@@ -253,7 +245,7 @@ const NAV_LINKS = [
   }
 
   .search-trigger-pill:hover {
-    border-color: var(--color-wine);
+    border-color: var(--color-brand-blue, #555de3);
     color: var(--color-text-main);
     background: #ffffff;
   }
@@ -272,7 +264,7 @@ const NAV_LINKS = [
   .btn-header-wine {
     display: inline-flex;
     align-items: center;
-    background-color: var(--color-wine);
+    background-color: var(--color-brand-blue, #555de3);
     color: #ffffff;
     padding: 8px 18px;
     border-radius: var(--radius-sm);
@@ -283,9 +275,9 @@ const NAV_LINKS = [
   }
 
   .btn-header-wine:hover {
-    background-color: var(--color-wine-hover);
+    background-color: var(--color-brand-blue-hover, #434bc9);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(88, 12, 29, 0.25);
+    box-shadow: 0 4px 14px rgba(85, 93, 227, 0.35);
   }
 
   /* Mobile Button */
@@ -402,7 +394,7 @@ const NAV_LINKS = [
   }
 
   .drawer-link:hover {
-    color: var(--color-wine);
+    color: var(--color-brand-blue, #555de3);
   }
 
   .drawer-divider {
@@ -444,12 +436,17 @@ const NAV_LINKS = [
     align-items: center;
     justify-content: center;
     padding: 12px;
-    background: var(--color-wine);
+    background: var(--color-brand-blue, #555de3);
     color: #ffffff;
     font-weight: 600;
     font-size: 0.95rem;
     border-radius: var(--radius-sm);
     text-align: center;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-drawer-cta:hover {
+    background: var(--color-brand-blue-hover, #434bc9);
   }
 
   @media (max-width: 860px) {

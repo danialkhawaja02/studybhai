@@ -1,5 +1,6 @@
 ---
 // src/components/Footer.astro
+import Logo from '@/components/Logo.astro';
 import { FOOTER_DATA } from '@/lib/constants';
 ---
 
@@ -9,7 +10,7 @@ import { FOOTER_DATA } from '@/lib/constants';
       <!-- Col 1: Brand & Mission -->
       <div class="footer-col brand-col">
         <a href="/" class="footer-logo">
-          Study<span class="logo-accent">Bhai</span>
+          <Logo variant="light" size="md" />
         </a>
         <p class="footer-mission">
           Dedicated to UN Sustainable Development Goal 4: empowering every Pakistani student with free, high-speed access to official board textbooks and position holder notes.
@@ -86,10 +87,10 @@ import { FOOTER_DATA } from '@/lib/constants';
 
 <style>
   .footer-wine {
-    background: radial-gradient(circle at 80% 10%, rgba(255, 200, 174, 0.08) 0%, transparent 60%),
-                var(--color-wine);
-    color: var(--color-peach-light);
-    border-top: 1px solid rgba(255, 200, 174, 0.2);
+    background: radial-gradient(circle at 80% 10%, rgba(85, 93, 227, 0.14) 0%, transparent 60%),
+                var(--color-navy, #1e2454);
+    color: #e2e8f0;
+    border-top: 1px solid rgba(85, 93, 227, 0.25);
     padding: 70px 0 30px;
     margin-top: auto;
   }
@@ -115,23 +116,15 @@ import { FOOTER_DATA } from '@/lib/constants';
   }
 
   .footer-logo {
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #ffffff;
     display: inline-block;
     margin-bottom: 12px;
-  }
-
-  .logo-accent {
-    color: var(--color-peach);
+    text-decoration: none;
   }
 
   .footer-mission {
     font-size: 0.9rem;
     line-height: 1.6;
-    color: var(--color-peach-light);
-    opacity: 0.85;
+    color: #cbd5e1;
     margin-bottom: 18px;
     max-width: 320px;
   }
@@ -146,8 +139,8 @@ import { FOOTER_DATA } from '@/lib/constants';
     font-size: 0.74rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--color-peach);
-    opacity: 0.8;
+    color: #8c92ff;
+    font-weight: 600;
   }
 
   .support-link {
@@ -177,23 +170,20 @@ import { FOOTER_DATA } from '@/lib/constants';
   }
 
   .footer-links-list a {
-    color: var(--color-peach-light);
-    opacity: 0.85;
+    color: #cbd5e1;
     font-size: 0.9rem;
     transition: all var(--transition-fast);
   }
 
   .footer-links-list a:hover {
     color: #ffffff;
-    opacity: 1;
     padding-left: 4px;
   }
 
   /* Newsletter */
   .newsletter-sub {
     font-size: 0.86rem;
-    color: var(--color-peach-light);
-    opacity: 0.85;
+    color: #cbd5e1;
     margin-bottom: 14px;
     line-height: 1.5;
   }
@@ -207,7 +197,7 @@ import { FOOTER_DATA } from '@/lib/constants';
   .newsletter-input {
     flex: 1;
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 200, 174, 0.25);
+    border: 1px solid rgba(182, 219, 255, 0.25);
     border-radius: var(--radius-sm);
     padding: 10px 12px;
     color: #ffffff;
@@ -216,12 +206,12 @@ import { FOOTER_DATA } from '@/lib/constants';
   }
 
   .newsletter-input::placeholder {
-    color: rgba(255, 231, 219, 0.55);
+    color: rgba(203, 213, 225, 0.6);
   }
 
   .newsletter-btn {
-    background: var(--color-peach);
-    color: var(--color-wine);
+    background: var(--color-brand-blue, #555de3);
+    color: #ffffff;
     font-weight: 700;
     font-size: 0.85rem;
     padding: 10px 16px;
@@ -232,7 +222,8 @@ import { FOOTER_DATA } from '@/lib/constants';
   }
 
   .newsletter-btn:hover {
-    background: #ffffff;
+    background: var(--color-brand-blue-hover, #434bc9);
+    box-shadow: 0 4px 12px rgba(85, 93, 227, 0.35);
   }
 
   .footer-social-row {
@@ -243,17 +234,18 @@ import { FOOTER_DATA } from '@/lib/constants';
   .social-chip {
     font-size: 0.78rem;
     font-weight: 600;
-    color: var(--color-peach-light);
+    color: #cbd5e1;
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 200, 174, 0.25);
+    border: 1px solid rgba(182, 219, 255, 0.25);
     padding: 4px 12px;
     border-radius: var(--radius-full);
     transition: all var(--transition-fast);
   }
 
   .social-chip:hover {
-    background: var(--color-peach);
-    color: var(--color-wine);
+    background: var(--color-brand-blue, #555de3);
+    color: #ffffff;
+    border-color: var(--color-brand-blue, #555de3);
   }
 
   /* Bottom */
@@ -263,7 +255,7 @@ import { FOOTER_DATA } from '@/lib/constants';
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
-    border-top: 1px solid rgba(255, 200, 174, 0.2);
+    border-top: 1px solid rgba(182, 219, 255, 0.15);
     padding-top: 24px;
     font-size: 0.82rem;
     opacity: 0.8;

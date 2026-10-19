@@ -8,7 +8,9 @@ describe('Cadmus Design System Tokens', () => {
     const cssContent = fs.readFileSync(cssPath, 'utf-8');
 
     // Color tokens
-    expect(cssContent).toContain('--color-wine: #580c1d');
+    expect(cssContent).toContain('--color-navy: #1e2454');
+    expect(cssContent).toContain('--color-royal: #555de3');
+    expect(cssContent).toContain('--color-wine: #1e2454');
     expect(cssContent).toContain('--color-bg-parchment: #fcf7ef');
     expect(cssContent).toContain('--color-peach: #ffc8ae');
     expect(cssContent).toContain('--color-vellum-border: #cfc0b0');

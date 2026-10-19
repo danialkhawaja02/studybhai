@@ -1,0 +1,141 @@
+---
+// src/components/Logo.astro
+interface Props {
+  variant?: 'dark' | 'light';
+  size?: 'sm' | 'md' | 'lg';
+  showText?: boolean;
+}
+
+const { variant = 'dark', size = 'md', showText = true } = Astro.props;
+
+const dimensions = {
+  sm: { icon: 28, text: '1.15rem' },
+  md: { icon: 36, text: '1.35rem' },
+  lg: { icon: 48, text: '1.75rem' },
+}[size];
+---
+
+<div class={`brand-logo-container size-${size} variant-${variant}`}>
+  <div class="logo-icon-wrapper" style={`width: ${dimensions.icon}px; height: ${dimensions.icon}px;`}>
+    <svg 
+      viewBox="0 0 120 100" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      class="logo-svg"
+      aria-hidden="true"
+    >
+      <!-- Cap / Mortarboard Top -->
+      <polygon 
+        points="60,8 114,32 60,54 6,32" 
+        fill="#1e2454" 
+        stroke="#555de3" 
+        stroke-width="3" 
+        stroke-linejoin="round"
+      />
+      <!-- Cap Skull base -->
+      <path 
+        d="M26,42 L26,52 C26,60 40,65 60,65 C80,65 94,60 94,52 L94,42" 
+        fill="#1e2454" 
+        stroke="#555de3" 
+        stroke-width="2.5" 
+      />
+
+      <!-- Book Pages -->
+      <path 
+        d="M20,54 C35,48 55,50 60,56 C65,50 85,48 100,54 L100,82 C85,76 65,78 60,84 C55,78 35,76 20,82 Z" 
+        fill="#ffffff" 
+        stroke="#555de3" 
+        stroke-width="3.5" 
+        stroke-linejoin="round"
+      />
+      <!-- Book spine line -->
+      <line x1="60" y1="56" x2="60" y2="84" stroke="#555de3" stroke-width="3" />
+
+      <!-- Left Page Text Lines -->
+      <line x1="28" y1="62" x2="52" y2="60" stroke="#1e2454" stroke-width="2" stroke-linecap="round" />
+      <line x1="28" y1="68" x2="52" y2="66" stroke="#1e2454" stroke-width="2" stroke-linecap="round" />
+      <line x1="28" y1="74" x2="52" y2="72" stroke="#1e2454" stroke-width="2" stroke-linecap="round" />
+
+      <!-- Right Page Text Lines -->
+      <line x1="68" y1="60" x2="92" y2="62" stroke="#1e2454" stroke-width="2" stroke-linecap="round" />
+      <line x1="68" y1="66" x2="92" y2="68" stroke="#1e2454" stroke-width="2" stroke-linecap="round" />
+      <line x1="68" y1="72" x2="92" y2="74" stroke="#1e2454" stroke-width="2" stroke-linecap="round" />
+
+      <!-- Tassel / Bookmark Ribbon swooping under book -->
+      <path 
+        d="M100,72 C100,88 75,90 60,90 C35,90 16,84 16,70" 
+        fill="none" 
+        stroke="#555de3" 
+        stroke-width="3" 
+        stroke-linecap="round"
+      />
+      <!-- Tassel Ring Pendant -->
+      <circle cx="100" cy="85" r="4.5" fill="#ffffff" stroke="#1e2454" stroke-width="2.5" />
+    </svg>
+  </div>
+
+  {showText && (
+    <div class="logo-text-wrapper">
+      <span class="logo-text-study">Study</span><span class="logo-text-bhai">Bhai</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .brand-logo-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .logo-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform var(--transition-fast, 0.2s ease);
+  }
+
+  .brand-logo-container:hover .logo-svg {
+    transform: scale(1.05) rotate(-2deg);
+  }
+
+  .logo-text-wrapper {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Dark variant (used on light backgrounds like header) */
+  .variant-dark .logo-text-study {
+    color: var(--color-navy, #1e2454);
+  }
+
+  .variant-dark .logo-text-bhai {
+    color: var(--color-brand-blue, #555de3);
+  }
+
+  /* Light variant (used on dark backgrounds like footer) */
+  .variant-light .logo-text-study {
+    color: #ffffff;
+  }
+
+  .variant-light .logo-text-bhai {
+    color: #8c92ff;
+  }
+
+  .size-sm .logo-text-wrapper { font-size: 1.15rem; }
+  .size-md .logo-text-wrapper { font-size: 1.35rem; }
+  .size-lg .logo-text-wrapper { font-size: 1.75rem; }
+</style>
