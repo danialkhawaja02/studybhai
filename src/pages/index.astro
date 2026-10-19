@@ -1,0 +1,150 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import Hero from '@/components/Hero.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import MarqueeBanner from '@/components/MarqueeBanner.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import { getAllPosts } from '@/lib/wordpress';
+
+// Fetch all posts for home page
+const allPosts = await getAllPosts();
+
+// Split posts by category for dedicated home page sections
+const featuredNotes = allPosts.filter(p => p.categories.includes('notes') || p.categories.includes('12th-class-notes')).slice(0, 3);
+const featuredBooks = allPosts.filter(p => p.categories.includes('ptb-books') || p.categories.includes('class-9-books') || p.categories.includes('class-10-books')).slice(0, 3);
+const latestGuides = allPosts.filter(p => p.categories.includes('student-guides') || p.categories.includes('scholarships')).slice(0, 3);
+---
+
+<Layout 
+  title="Study Bhai - Your Gateway to Quality Education for All Pakistani Students"
+  description="Study Bhai is an online platform for Pakistani students to access quality education resources: PTB textbooks, chapter notes, past papers, and scholarships."
+>
+  <Header slot="header" />
+
+  <!-- Hero Banner -->
+  <Hero />
+
+  <!-- Featured Notes & Revision Section -->
+  <section class="home-section" id="featured-resources">
+    <div class="container">
+      <div class="section-title-row">
+        <div>
+          <span class="badge badge-brand">Exam Focused</span>
+          <h2 class="section-heading">Top Quality Chapter Notes</h2>
+          <p class="section-desc">Comprehensive chapter-wise revision notes with solved board questions.</p>
+        </div>
+        <a href="/notes/" class="btn btn-outline">
+          <span>View All Notes</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid-3col">
+        {featuredNotes.map((post) => (
+          <ResourceCard post={post} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Propositions & Feature Highlights -->
+  <FeatureGrid />
+
+  <!-- Featured PTB Textbooks Section -->
+  <section class="home-section bg-surface">
+    <div class="container">
+      <div class="section-title-row">
+        <div>
+          <span class="badge badge-gold">Official Curriculum</span>
+          <h2 class="section-heading">Official PTB Board Textbooks</h2>
+          <p class="section-desc">Download complete Punjab Curriculum & Textbook Board (PTB) digital books.</p>
+        </div>
+        <a href="/books/" class="btn btn-outline">
+          <span>Explore All Textbooks</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid-3col">
+        {featuredBooks.map((post) => (
+          <ResourceCard post={post} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Animated Marquee Banner -->
+  <MarqueeBanner />
+
+  <!-- Student Feedback / Testimonials -->
+  <Testimonials />
+
+  <!-- Latest Guides & Scholarships -->
+  <section class="home-section">
+    <div class="container">
+      <div class="section-title-row">
+        <div>
+          <span class="badge badge-brand">Latest Updates</span>
+          <h2 class="section-heading">Our Latest Guides & Scholarships</h2>
+          <p class="section-desc">Preparation procedures for USAT, HEC entrance tests, and study abroad funding.</p>
+        </div>
+        <a href="/guides/" class="btn btn-outline">
+          <span>Explore All Guides</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid-3col">
+        {latestGuides.map((post) => (
+          <ResourceCard post={post} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .home-section {
+    padding: 5rem 0;
+  }
+
+  .bg-surface {
+    background: #FFFFFF;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .section-heading {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 0.65rem 0 0.35rem 0;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .section-desc {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 0;
+  }
+</style>
