@@ -104,20 +104,32 @@ The Astro build engine automatically maps your WordPress taxonomy categories to 
 
 To ensure new notes or book PDFs appear on `studybhai.com` within 60 seconds of clicking "Publish" in WordPress:
 
-1. In the Cloudflare Pages project dashboard:
-   - Go to **Settings > Builds & deployments > Deploy hooks**.
-   - Click **Add deploy hook**.
-   - Name: `WordPress CMS Hook`
-   - Branch: `master`
-   - Copy the generated Webhook URL (e.g. `https://api.cloudflare.com/client/v4/pages/scripts/...`).
+> [!NOTE]
+> **Important:** Deploy Hooks are only available on Pages projects created via **"Connect to Git"** (linked to your GitHub repo `danialkhawaja02/studybhai`). If you created your project via "Direct Upload" (drag-and-drop), the build system is bypassed, so Deploy Hooks will not be visible.
 
+### Finding the Deploy Hook in Cloudflare:
+1. In the [Cloudflare Dashboard](https://dash.cloudflare.com/):
+   - In the left sidebar, click **Workers & Pages**.
+   - Click on your project name (e.g., `studybhai`).
+   - At the top of the project overview, click the **Settings** tab.
+   - In the left-hand sub-navigation under Settings, click **Builds** (or **Builds & deployments**).
+   - Scroll down to the bottom of the page to find the **Deploy hooks** section.
+   - Click **Add deploy hook**.
+   - Set **Name**: `WordPress CMS Hook`
+   - Set **Branch**: `master`
+   - Click **Save** and copy the generated Webhook URL (e.g., `https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/...`).
+
+### Linking the Webhook in WordPress:
 2. In your WordPress Admin:
+   - Install the free **WP Webhooks** plugin (or **WP Webhooks - Automations**).
    - Go to **Settings > WP Webhooks > Send Data**.
    - Select the trigger: **Post created** and **Post updated**.
    - Add a webhook action with the Cloudflare Deploy Hook URL you just copied.
    - Click **Save Webhook**.
 
-Whenever you publish or update a book or note in WordPress, WP Webhooks triggers Cloudflare to rebuild and deploy the new static version instantly!
+Whenever you publish or update a book or note in WordPress, WP Webhooks sends an HTTP POST request to Cloudflare, triggering an instant rebuild and deploy within 60 seconds!
+
+*(Alternative: Any time you push commits to GitHub with `git push origin master`, Cloudflare will also automatically rebuild and deploy your latest changes.)*
 
 ---
 
