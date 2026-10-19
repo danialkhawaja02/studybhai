@@ -1,0 +1,170 @@
+---
+import { STUDENT_TESTIMONIALS } from '@/lib/constants';
+---
+
+<section class="testimonials-section">
+  <div class="container">
+    <div class="testimonials-grid">
+      <!-- Left Satisfaction Block -->
+      <div class="satisfaction-card card-premium">
+        <span class="badge badge-brand">Testimonials</span>
+        <h2 class="satisfaction-heading">Students Feedback</h2>
+        <p class="satisfaction-subtext">
+          See how our resources are making a difference! Hear from real Pakistani students about their experiences and exam success.
+        </p>
+
+        <div class="satisfaction-stat-box">
+          <div class="satisfaction-percentage">100%</div>
+          <div class="satisfaction-label">Student Satisfaction Rating</div>
+        </div>
+      </div>
+
+      <!-- Right Testimonials Cards -->
+      <div class="testimonials-cards-wrap">
+        {STUDENT_TESTIMONIALS.map((t) => (
+          <div class="testimonial-card card-premium">
+            <div class="rating-stars">
+              {Array.from({ length: t.rating }).map(() => (
+                <span class="star-icon">★</span>
+              ))}
+            </div>
+            <p class="testimonial-quote">"{t.quote}"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar-initials">
+                {t.name.split(' ').map(n => n[0]).join('')}
+              </div>
+              <div class="author-details">
+                <span class="author-name">{t.name}</span>
+                <span class="author-role">{t.grade}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    padding: 5.5rem 0;
+    background: #F8FAFC;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (max-width: 991px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .satisfaction-card {
+    padding: 3rem;
+    background: #FFFFFF;
+  }
+
+  .satisfaction-heading {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: var(--color-primary);
+  }
+
+  .satisfaction-subtext {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .satisfaction-stat-box {
+    background: var(--color-brand-subtle);
+    border-left: 4px solid var(--color-brand);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .satisfaction-percentage {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-brand);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .satisfaction-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  /* Right Cards */
+  .testimonials-cards-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    padding: 1.75rem;
+    background: #FFFFFF;
+  }
+
+  .rating-stars {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .testimonial-quote {
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    font-style: italic;
+    margin-bottom: 1.25rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar-initials {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .author-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 0.95rem;
+  }
+
+  .author-role {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+</style>

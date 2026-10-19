@@ -1,0 +1,357 @@
+---
+import { FOOTER_DATA } from '@/lib/constants';
+---
+
+<footer class="site-footer">
+  <!-- Top Contact & Social Bar -->
+  <div class="footer-top-bar">
+    <div class="container footer-top-container">
+      <div class="contact-banner-item">
+        <div class="banner-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </div>
+        <div class="banner-text">
+          <span>Looking for help?</span>
+          <a href="/contact/" class="banner-link">Contact us today</a>
+        </div>
+      </div>
+
+      <div class="contact-banner-item">
+        <div class="banner-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </div>
+        <div class="banner-text">
+          <span>Keep in Touch.</span>
+          <a href={FOOTER_DATA.instagram} target="_blank" rel="noopener noreferrer" class="banner-link">Follow us on Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Footer Content -->
+  <div class="container footer-main">
+    <div class="footer-grid">
+      <!-- Col 1: About & Mission -->
+      <div class="footer-col col-brand">
+        <a href="/" class="footer-logo">
+          <span class="footer-logo-name">Study<span class="logo-accent">Bhai</span></span>
+        </a>
+        <p class="footer-about-text">
+          Study Bhai is Pakistan's premier online educational platform, empowering students with verified Punjab Curriculum & Textbook Board (PTB) books, comprehensive chapter revision notes, and scholarship guides.
+        </p>
+        <div class="footer-support-email">
+          <span class="support-label">Need academic support?</span>
+          <a href={`mailto:${FOOTER_DATA.email}`} class="support-email-link">{FOOTER_DATA.email}</a>
+        </div>
+      </div>
+
+      <!-- Col 2: Textbooks -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">PTB Textbooks</h4>
+        <ul class="footer-links">
+          <li><a href="/books/class-9/">9th Class Books PDF</a></li>
+          <li><a href="/books/class-10/">10th Class Books PDF</a></li>
+          <li><a href="/books/class-11/">11th Class Books PTB</a></li>
+          <li><a href="/books/class-12/">12th Class Books PTB</a></li>
+          <li><a href="/books/">All Board Books</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Quick Resources -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Study Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/notes/class-12/">Class 12 Math Notes</a></li>
+          <li><a href="/notes/class-11/">1st Year Biology Notes</a></li>
+          <li><a href="/past-papers/">5-Year Past Papers</a></li>
+          <li><a href="/guides/">USAT Test Preparation</a></li>
+          <li><a href="/scholarships/">HEC Scholarships</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Newsletter -->
+      <div class="footer-col col-newsletter">
+        <h4 class="footer-col-title">Subscribe Newsletter</h4>
+        <p class="newsletter-desc">Get the latest board exam updates, paper schemes, and scholarship alerts directly in your inbox.</p>
+        <form class="newsletter-form" id="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to Study Bhai updates!');">
+          <div class="newsletter-input-group">
+            <input 
+              type="email" 
+              placeholder="Enter your email..." 
+              required 
+              class="newsletter-input" 
+              aria-label="Your email address"
+            />
+            <button type="submit" class="newsletter-submit-btn" aria-label="Subscribe">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div class="privacy-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Protecting your privacy. No spam.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Copyright -->
+    <div class="footer-bottom">
+      <div class="copyright-text">
+        © 2026 Study Bhai. All Rights Reserved. Educational resources curated for Pakistani students.
+      </div>
+      <div class="legal-links">
+        {FOOTER_DATA.legalLinks.map((link) => (
+          <a href={link.href} class="legal-link">{link.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #141E1C;
+    color: #FFFFFF;
+    margin-top: auto;
+  }
+
+  /* Top Contact Bar */
+  .footer-top-bar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.75rem 0;
+    background: rgba(31, 46, 43, 0.5);
+  }
+
+  .footer-top-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .contact-banner-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .banner-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #34D399;
+  }
+
+  .banner-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .banner-link {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .banner-link:hover {
+    color: #34D399;
+  }
+
+  /* Main Footer */
+  .footer-main {
+    padding: 4.5rem 1.5rem 2rem 1.5rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  @media (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .footer-logo {
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo-name {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  .logo-accent {
+    color: #34D399;
+  }
+
+  .footer-about-text {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-support-email {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .support-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .support-email-link {
+    color: #34D399;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  /* Col Titles */
+  .footer-col-title {
+    font-family: var(--font-heading);
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.9rem;
+    transition: all var(--transition-fast);
+  }
+
+  .footer-links a:hover {
+    color: #34D399;
+    padding-left: 4px;
+  }
+
+  /* Newsletter */
+  .newsletter-desc {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .newsletter-input-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    padding: 0.25rem 0.25rem 0.25rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 0.88rem;
+    outline: none;
+  }
+
+  .newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .newsletter-submit-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-brand);
+    color: #FFFFFF;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .newsletter-submit-btn:hover {
+    background: var(--color-brand-hover);
+  }
+
+  .privacy-note {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Bottom Bar */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .copyright-text {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .legal-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .legal-link {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .legal-link:hover {
+    color: #34D399;
+  }
+</style>
