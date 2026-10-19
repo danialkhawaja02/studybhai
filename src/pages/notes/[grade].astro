@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 import { GRADE_FILTERS } from '@/lib/constants';
 import { getGradeStaticPaths } from '@/lib/resource-utils';
@@ -56,19 +56,14 @@ const gradeNotes = allPosts.filter(p => {
 
   <section class="archive-content">
     <div class="container">
-      {gradeNotes.length > 0 ? (
-        <div class="grid-3col">
-          {gradeNotes.map((note) => (
-            <ResourceCard post={note} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>Notes for {gradeName} are being compiled</h3>
-          <p>Please browse all notes or search our notes directory.</p>
-          <a href="/notes/" class="btn btn-primary" style="margin-top: 1rem;">View All Notes</a>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={gradeNotes} 
+        pageSize={9} 
+        emptyTitle={`Notes for ${gradeName} are being compiled`} 
+        emptyDesc="Please browse all notes or search our notes directory."
+        emptyActionLabel="View All Notes"
+        emptyActionHref="/notes/"
+      />
     </div>
   </section>
 

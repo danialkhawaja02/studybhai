@@ -22,11 +22,11 @@ const { post } = Astro.props;
 const headings = extractHeadingsFromHtml(post.content);
 const contentWithAnchors = injectHeadingAnchors(post.content);
 
-// Related posts
+// Related posts (strictly 2 posts in a row)
 const allPosts = await getAllPosts();
 const relatedPosts = allPosts
   .filter((p) => p.slug !== post.slug && (p.meta.subject === post.meta.subject || p.categories.some(c => post.categories.includes(c))))
-  .slice(0, 3);
+  .slice(0, 2);
 ---
 
 <Layout 
@@ -153,7 +153,7 @@ const relatedPosts = allPosts
           <h2 class="related-title">Related Study Resources</h2>
           <p class="related-subtitle">Continue your exam preparation with similar chapter notes and books.</p>
         </div>
-        <div class="grid-3col">
+        <div class="grid-2col">
           {relatedPosts.map((rel) => (
             <ResourceCard post={rel} />
           ))}
@@ -430,5 +430,20 @@ const relatedPosts = allPosts
   .related-subtitle {
     color: var(--color-text-muted);
     font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .grid-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2col {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
   }
 </style>

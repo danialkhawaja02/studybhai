@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 
 const allPosts = await getAllPosts();
@@ -29,18 +29,12 @@ const scholarships = allPosts.filter(p => p.categories.includes('scholarships'))
 
   <section class="archive-content">
     <div class="container">
-      {scholarships.length > 0 ? (
-        <div class="grid-3col">
-          {scholarships.map((s) => (
-            <ResourceCard post={s} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>No scholarships listed</h3>
-          <p>Please browse all student guides or check back shortly.</p>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={scholarships} 
+        pageSize={9} 
+        emptyTitle="No scholarships listed" 
+        emptyDesc="Please browse all student guides or check back shortly."
+      />
     </div>
   </section>
 

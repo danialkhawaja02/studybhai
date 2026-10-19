@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 import { GRADE_FILTERS } from '@/lib/constants';
 
@@ -40,18 +40,12 @@ const notes = allPosts.filter(p => p.categories.includes('notes') || p.categorie
 
   <section class="archive-content">
     <div class="container">
-      {notes.length > 0 ? (
-        <div class="grid-3col">
-          {notes.map((note) => (
-            <ResourceCard post={note} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>No notes found</h3>
-          <p>Please browse all resources or search our database.</p>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={notes} 
+        pageSize={9} 
+        emptyTitle="No notes found" 
+        emptyDesc="Please browse all resources or search our database."
+      />
     </div>
   </section>
 

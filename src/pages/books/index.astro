@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 import { GRADE_FILTERS } from '@/lib/constants';
 
@@ -40,18 +40,12 @@ const books = allPosts.filter(p => p.categories.includes('ptb-books') || p.categ
 
   <section class="archive-content">
     <div class="container">
-      {books.length > 0 ? (
-        <div class="grid-3col">
-          {books.map((book) => (
-            <ResourceCard post={book} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>No textbooks found</h3>
-          <p>Check back shortly or search our database.</p>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={books} 
+        pageSize={9} 
+        emptyTitle="No textbooks found" 
+        emptyDesc="Check back shortly or search our database."
+      />
     </div>
   </section>
 

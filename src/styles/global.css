@@ -160,6 +160,36 @@ button, input, select, textarea {
   }
 }
 
+/* Universal Responsive Grids */
+.grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  width: 100%;
+}
+
+.grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .grid-3col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
+@media (max-width: 680px) {
+  .grid-3col,
+  .grid-2col {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 /* Cadmus Card System */
 .vellum-card {
   background: var(--color-surface);

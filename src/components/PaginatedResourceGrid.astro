@@ -1,0 +1,413 @@
+---
+// src/components/PaginatedResourceGrid.astro
+import type { Post } from '@/types';
+import ResourceCard from '@/components/ResourceCard.astro';
+
+interface Props {
+  posts: Post[];
+  pageSize?: number;
+  emptyTitle?: string;
+  emptyDesc?: string;
+  emptyActionLabel?: string;
+  emptyActionHref?: string;
+}
+
+const {
+  posts = [],
+  pageSize = 9,
+  emptyTitle = 'No study resources found',
+  emptyDesc = 'Please browse other categories or search our repository.',
+  emptyActionLabel,
+  emptyActionHref
+} = Astro.props;
+
+const totalPosts = posts.length;
+const totalPages = Math.ceil(totalPosts / pageSize);
+---
+
+<div class="paginated-archive-wrapper" data-page-size={pageSize} data-total-posts={totalPosts} data-total-pages={totalPages}>
+  <div id="archive-grid-top" class="scroll-anchor"></div>
+
+  {totalPosts > 0 ? (
+    <>
+      <!-- 3-Column Resource Grid -->
+      <div class="grid-3col resource-grid" id="paginated-grid">
+        {posts.map((post, idx) => (
+          <div 
+            class="grid-card-item" 
+            data-post-index={idx}
+            style={idx >= pageSize ? 'display: none;' : ''}
+          >
+            <ResourceCard post={post} />
+          </div>
+        ))}
+      </div>
+
+      <!-- Pagination Controls (Rendered when total posts exceed page size or multiple pages exist) -->
+      {totalPages > 1 && (
+        <div class="pagination-wrapper" id="pagination-controls">
+          <div class="pagination-summary">
+            Showing <strong class="summary-start">1</strong>–<strong class="summary-end">{Math.min(pageSize, totalPosts)}</strong> of <strong class="summary-total">{totalPosts}</strong> resources
+          </div>
+
+          <nav class="pagination-nav" aria-label="Study resources pagination">
+            <button type="button" class="pagination-nav-btn prev-btn" id="prev-page-btn" disabled aria-label="Previous Page">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <span>Previous</span>
+            </button>
+
+            <div class="pagination-pages-list" id="pagination-numbers">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                <button
+                  type="button"
+                  class={`page-number-btn ${pageNum === 1 ? 'active' : ''}`}
+                  data-page={pageNum}
+                  aria-label={`Go to page ${pageNum}`}
+                  aria-current={pageNum === 1 ? 'page' : undefined}
+                >
+                  {pageNum}
+                </button>
+              ))}
+            </div>
+
+            <button type="button" class="pagination-nav-btn next-btn" id="next-page-btn" aria-label="Next Page">
+              <span>Next</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </nav>
+        </div>
+      )}
+    </>
+  ) : (
+    <div class="empty-state card-premium">
+      <div class="empty-icon-wrap">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+      </div>
+      <h3 class="empty-title">{emptyTitle}</h3>
+      <p class="empty-desc">{emptyDesc}</p>
+      {emptyActionLabel && emptyActionHref && (
+        <a href={emptyActionHref} class="btn-cadmus-primary empty-btn">
+          {emptyActionLabel}
+        </a>
+      )}
+    </div>
+  )}
+</div>
+
+<script>
+  function setupPagination() {
+    const wrappers = document.querySelectorAll('.paginated-archive-wrapper');
+    
+    wrappers.forEach((wrapper) => {
+      const pageSize = parseInt(wrapper.getAttribute('data-page-size') || '9', 10);
+      const totalPosts = parseInt(wrapper.getAttribute('data-total-posts') || '0', 10);
+      const totalPages = parseInt(wrapper.getAttribute('data-total-pages') || '1', 10);
+
+      if (totalPages <= 1) return;
+
+      const cardItems = wrapper.querySelectorAll('.grid-card-item');
+      const prevBtn = wrapper.querySelector('#prev-page-btn');
+      const nextBtn = wrapper.querySelector('#next-page-btn');
+      const pageBtns = wrapper.querySelectorAll('.page-number-btn');
+      const summaryStart = wrapper.querySelector('.summary-start');
+      const summaryEnd = wrapper.querySelector('.summary-end');
+      const anchor = wrapper.querySelector('#archive-grid-top');
+
+      // Read initial page from URL query
+      let currentPage = 1;
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPage = parseInt(urlParams.get('page') || '1', 10);
+      if (paramPage >= 1 && paramPage <= totalPages) {
+        currentPage = paramPage;
+      }
+
+      function renderPage(page, scrollIntoView = false) {
+        currentPage = page;
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+
+        // Toggle card visibility
+        cardItems.forEach((card, idx) => {
+          if (idx >= startIndex && idx < endIndex) {
+            (card as HTMLElement).style.display = '';
+            (card as HTMLElement).style.opacity = '1';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+
+        // Update range indicators
+        if (summaryStart && summaryEnd) {
+          summaryStart.textContent = (startIndex + 1).toString();
+          summaryEnd.textContent = Math.min(endIndex, totalPosts).toString();
+        }
+
+        // Update page buttons
+        pageBtns.forEach((btn) => {
+          const btnPage = parseInt(btn.getAttribute('data-page') || '1', 10);
+          if (btnPage === page) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-current', 'page');
+          } else {
+            btn.classList.remove('active');
+            btn.removeAttribute('aria-current');
+          }
+        });
+
+        // Update navigation buttons
+        if (prevBtn) {
+          (prevBtn as HTMLButtonElement).disabled = (page <= 1);
+        }
+        if (nextBtn) {
+          (nextBtn as HTMLButtonElement).disabled = (page >= totalPages);
+        }
+
+        // Update URL query state without full page reload
+        const newUrl = new URL(window.location.href);
+        if (page === 1) {
+          newUrl.searchParams.delete('page');
+        } else {
+          newUrl.searchParams.set('page', page.toString());
+        }
+        window.history.pushState({ page }, '', newUrl.toString());
+
+        // Smooth scroll to top of grid
+        if (scrollIntoView && anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      // Initialize
+      renderPage(currentPage, false);
+
+      // Event handlers
+      prevBtn?.addEventListener('click', () => {
+        if (currentPage > 1) {
+          renderPage(currentPage - 1, true);
+        }
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+          renderPage(currentPage + 1, true);
+        }
+      });
+
+      pageBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = parseInt(btn.getAttribute('data-page') || '1', 10);
+          if (target !== currentPage) {
+            renderPage(target, true);
+          }
+        });
+      });
+
+      // Browser forward/back button listener
+      window.addEventListener('popstate', (e) => {
+        const p = e.state?.page || 1;
+        renderPage(p, false);
+      });
+    });
+  }
+
+  // Run on page load and view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupPagination);
+  } else {
+    setupPagination();
+  }
+  document.addEventListener('astro:page-load', setupPagination);
+</script>
+
+<style>
+  .paginated-archive-wrapper {
+    width: 100%;
+    position: relative;
+  }
+
+  .scroll-anchor {
+    position: relative;
+    top: -90px;
+    visibility: hidden;
+  }
+
+  /* 3 Posts In Single Row Grid */
+  .grid-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    width: 100%;
+  }
+
+  .grid-card-item {
+    transition: opacity 0.25s ease;
+    height: 100%;
+  }
+
+  /* Pagination Controls */
+  .pagination-wrapper {
+    margin-top: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--color-vellum-border, #e2e8f0);
+  }
+
+  .pagination-summary {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .pagination-summary strong {
+    color: var(--color-navy, #1e2454);
+    font-weight: 700;
+  }
+
+  .pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination-pages-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pagination-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid var(--color-vellum-border, #e2e8f0);
+    color: var(--color-navy, #1e2454);
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .pagination-nav-btn:hover:not(:disabled) {
+    background: var(--color-brand-blue, #555de3);
+    border-color: var(--color-brand-blue, #555de3);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(85, 93, 227, 0.3);
+  }
+
+  .pagination-nav-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: #f8fafc;
+  }
+
+  .page-number-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid var(--color-vellum-border, #e2e8f0);
+    color: var(--color-navy, #1e2454);
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .page-number-btn:hover:not(.active) {
+    border-color: var(--color-brand-blue, #555de3);
+    color: var(--color-brand-blue, #555de3);
+    background: #f0f3fa;
+    transform: translateY(-1px);
+  }
+
+  .page-number-btn.active {
+    background: var(--color-brand-blue, #555de3);
+    color: #ffffff;
+    border-color: var(--color-brand-blue, #555de3);
+    box-shadow: 0 4px 14px rgba(85, 93, 227, 0.4);
+    cursor: default;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 4.5rem 2rem;
+    background: var(--color-surface, #ffffff);
+    border: 1px solid var(--color-vellum-border, #e2e8f0);
+    border-radius: var(--radius-xl);
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .empty-icon-wrap {
+    color: var(--color-brand-blue, #555de3);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .empty-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy, #1e2454);
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 1024px) {
+    .grid-3col {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .grid-3col {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .pagination-nav {
+      gap: 8px;
+    }
+
+    .pagination-nav-btn {
+      padding: 8px 14px;
+      font-size: 0.82rem;
+    }
+
+    .page-number-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 0.85rem;
+    }
+  }
+</style>

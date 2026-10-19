@@ -299,5 +299,365 @@ export const MOCK_POSTS: Post[] = [
       downloadUrl: '#',
       readTime: '4 min read'
     }
+  },
+  {
+    id: 9705,
+    slug: 'class-9-mathematics-ptb-book',
+    title: 'Class 9 Mathematics PTB Book PDF Download (Science Group)',
+    excerpt: 'Download the official Punjab Curriculum and Textbook Board (PCTB) Class 9 Mathematics textbook with matrices, logarithms, and algebraic formulas.',
+    content: '<h2>Class 9 Mathematics PTB Book</h2><p>Official Punjab curriculum mathematics textbook covering real numbers, matrices, logarithms, and polynomial geometry.</p>',
+    date: '2024-09-01T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      alt: 'Class 9 Mathematics PTB Book',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-9-books'],
+    tags: ['class-9', 'mathematics', 'ptb'],
+    meta: {
+      subject: 'Mathematics',
+      grade: '9th Class',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '19.2 MB',
+      downloadUrl: '#',
+      readTime: '5 min read'
+    }
+  },
+  {
+    id: 9706,
+    slug: 'class-9-biology-ptb-book',
+    title: 'Class 9 Biology Punjab Board Official Textbook PDF',
+    excerpt: 'Complete high-resolution PDF of PCTB Class 9 Biology book covering cellular biology, biodiversity, enzymes, and bioenergetics.',
+    content: '<h2>Class 9 Biology Textbook</h2><p>Official syllabus for Matric part 1 students with diagrams, cellular structure, and laboratory experiments.</p>',
+    date: '2024-09-05T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      alt: 'Class 9 Biology Textbook',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-9-books'],
+    tags: ['class-9', 'biology', 'ptb'],
+    meta: {
+      subject: 'Biology',
+      grade: '9th Class',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '17.8 MB',
+      downloadUrl: '#',
+      readTime: '4 min read'
+    }
+  },
+  {
+    id: 9707,
+    slug: 'class-10-physics-ptb-book',
+    title: 'Class 10 Physics Punjab Curriculum Board Book PDF',
+    excerpt: 'Download Matric Class 10 Physics textbook covering simple harmonic motion, waves, sound, geometrical optics, and electrostatics.',
+    content: '<h2>Class 10 Physics PTB Textbook</h2><p>Official textbook with solved examples, numerical exercises, and conceptual questions.</p>',
+    date: '2024-09-10T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      alt: 'Class 10 Physics Book',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-10-books'],
+    tags: ['class-10', 'physics', 'ptb'],
+    meta: {
+      subject: 'Physics',
+      grade: '10th Class',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '21.0 MB',
+      downloadUrl: '#',
+      readTime: '5 min read'
+    }
+  },
+  {
+    id: 9708,
+    slug: 'class-10-english-ptb-book',
+    title: 'Class 10 English Textbook Punjab Board PDF Download',
+    excerpt: 'Official English textbook for Class 10 Matric students featuring Hazrat Muhammad (PBUH) as an embodiment of justice, essays, and grammar exercises.',
+    content: '<h2>Class 10 English Textbook</h2><p>Comprehensive English textbook with prose, poetry comprehension, and board-pattern grammar exercises.</p>',
+    date: '2024-09-15T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      alt: 'Class 10 English Textbook',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-10-books'],
+    tags: ['class-10', 'english', 'ptb'],
+    meta: {
+      subject: 'English',
+      grade: '10th Class',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '15.4 MB',
+      downloadUrl: '#',
+      readTime: '4 min read'
+    }
+  },
+  {
+    id: 9709,
+    slug: 'class-11-physics-ptb-book',
+    title: 'Class 11 Physics 1st Year PTB Official Book PDF',
+    excerpt: 'Official PTB textbook for FSc Pre-Engineering and ICS 1st Year students covering vectors, equilibrium, work, energy, and rotational dynamics.',
+    content: '<h2>Class 11 Physics Textbook</h2><p>Official 1st Year physics textbook with SI units, dimensional analysis, and fluid dynamics.</p>',
+    date: '2024-09-20T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      alt: 'Class 11 Physics Book',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-11-books'],
+    tags: ['class-11', 'physics', 'ptb'],
+    meta: {
+      subject: 'Physics',
+      grade: '11th (1st Year)',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '24.1 MB',
+      downloadUrl: '#',
+      readTime: '6 min read'
+    }
+  },
+  {
+    id: 9710,
+    slug: 'class-11-chemistry-ptb-book',
+    title: 'Class 11 Chemistry FSc Part 1 PTB Book PDF',
+    excerpt: 'Download Class 11 Chemistry official textbook covering basic concepts, states of matter, atomic structure, and chemical equilibrium.',
+    content: '<h2>Class 11 Chemistry Textbook</h2><p>Official textbook for pre-medical and pre-engineering intermediate students in Punjab.</p>',
+    date: '2024-09-22T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      alt: 'Class 11 Chemistry Book',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-11-books'],
+    tags: ['class-11', 'chemistry', 'ptb'],
+    meta: {
+      subject: 'Chemistry',
+      grade: '11th (1st Year)',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '22.8 MB',
+      downloadUrl: '#',
+      readTime: '5 min read'
+    }
+  },
+  {
+    id: 9711,
+    slug: 'class-12-physics-ptb-book',
+    title: 'Class 12 Physics 2nd Year PTB Textbook PDF',
+    excerpt: 'Official 2nd year Physics book covering electrostatics, current electricity, electromagnetism, electronics, and nuclear physics.',
+    content: '<h2>Class 12 Physics Textbook</h2><p>Punjab board official textbook for HSSC Part 2 pre-engineering and pre-medical examinations.</p>',
+    date: '2024-09-25T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      alt: 'Class 12 Physics Textbook',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-12-books'],
+    tags: ['class-12', 'physics', 'ptb'],
+    meta: {
+      subject: 'Physics',
+      grade: '12th (2nd Year)',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '25.6 MB',
+      downloadUrl: '#',
+      readTime: '6 min read'
+    }
+  },
+  {
+    id: 9712,
+    slug: 'class-12-biology-ptb-book',
+    title: 'Class 12 Biology 2nd Year PTB Textbook PDF',
+    excerpt: 'Official 2nd year Biology textbook for FSc Pre-Medical students covering homeostasis, support and movement, coordination, and biotechnology.',
+    content: '<h2>Class 12 Biology Textbook</h2><p>High-yield medical entrance test (MDCAT) aligned biology textbook published by PCTB.</p>',
+    date: '2024-09-28T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      alt: 'Class 12 Biology Textbook',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['ptb-books', 'class-12-books'],
+    tags: ['class-12', 'biology', 'ptb'],
+    meta: {
+      subject: 'Biology',
+      grade: '12th (2nd Year)',
+      board: 'Punjab Curriculum & Textbook Board (PTB)',
+      fileSize: '23.4 MB',
+      downloadUrl: '#',
+      readTime: '5 min read'
+    }
+  },
+  {
+    id: 9713,
+    slug: 'class-9-chemistry-notes',
+    title: 'Class 9 Chemistry All Chapter Solved Notes PDF',
+    excerpt: 'Handwritten and board topper solved chapter notes for Class 9 Chemistry: atomic structure, periodic table, and chemical bonding.',
+    content: '<h2>Class 9 Chemistry Solved Notes</h2><p>Formulas, short answers, MCQs with explanations, and numerical problems for 9th Matric students.</p>',
+    date: '2024-10-01T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      alt: 'Class 9 Chemistry Notes',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['notes', '9th-class-notes'],
+    tags: ['class-9', 'chemistry', 'notes'],
+    meta: {
+      subject: 'Chemistry',
+      grade: '9th Class',
+      board: 'All Punjab Boards (BISE)',
+      fileSize: '14.5 MB',
+      downloadUrl: '#',
+      readTime: '4 min read'
+    }
+  },
+  {
+    id: 9714,
+    slug: 'class-10-math-notes',
+    title: 'Class 10 Mathematics Matric Solved Chapter Notes',
+    excerpt: 'Complete solved theorem notes, quadratic equations, variation, matrices, and geometry exercises for Class 10 Matric examinations.',
+    content: '<h2>Class 10 Mathematics Solved Notes</h2><p>Chapter-wise solutions with board-marked theorems and essential formulas for 10th class exams.</p>',
+    date: '2024-10-05T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      alt: 'Class 10 Mathematics Notes',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['notes', '10th-class-notes'],
+    tags: ['class-10', 'mathematics', 'notes'],
+    meta: {
+      subject: 'Mathematics',
+      grade: '10th Class',
+      board: 'All Punjab Boards (BISE)',
+      fileSize: '19.8 MB',
+      downloadUrl: '#',
+      readTime: '5 min read'
+    }
+  },
+  {
+    id: 9715,
+    slug: 'class-11-physics-notes',
+    title: 'Class 11 Physics 1st Year Solved Formula Sheets & Notes',
+    excerpt: 'Comprehensive HSSC Part 1 Physics notes with solved past board numericals, short question answers, and vector derivations.',
+    content: '<h2>Class 11 Physics Notes</h2><p>Formulas, numerical solutions, and conceptual questions for FSc 1st year students.</p>',
+    date: '2024-10-10T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      alt: 'Class 11 Physics Notes',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['notes', '11th-class-notes'],
+    tags: ['class-11', 'physics', 'notes'],
+    meta: {
+      subject: 'Physics',
+      grade: '11th (1st Year)',
+      board: 'All Punjab Boards (BISE)',
+      fileSize: '22.3 MB',
+      downloadUrl: '#',
+      readTime: '6 min read'
+    }
+  },
+  {
+    id: 9716,
+    slug: 'class-12-chemistry-notes',
+    title: 'Class 12 Chemistry Organic & Inorganic Notes PDF',
+    excerpt: 'Detailed chapter notes for 2nd Year Chemistry covering reaction mechanisms, s & p block elements, aromatic hydrocarbons, and biochemistry.',
+    content: '<h2>Class 12 Chemistry Notes</h2><p>Organic reaction mechanisms, functional groups, and board question answers for HSSC Part 2.</p>',
+    date: '2024-10-15T10:00:00Z',
+    modified: '2025-08-01T10:00:00Z',
+    featuredImage: {
+      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      alt: 'Class 12 Chemistry Notes',
+      width: 600,
+      height: 400
+    },
+    author: {
+      id: 1,
+      name: 'Danial Sohail',
+      avatar: 'https://secure.gravatar.com/avatar/415cd7973f7c912978dee4d7f73806e5786faf2dec9f71bc5ead4521f6e09e06?s=96'
+    },
+    categories: ['notes', '12th-class-notes'],
+    tags: ['class-12', 'chemistry', 'notes'],
+    meta: {
+      subject: 'Chemistry',
+      grade: '12th (2nd Year)',
+      board: 'All Punjab Boards (BISE)',
+      fileSize: '20.6 MB',
+      downloadUrl: '#',
+      readTime: '5 min read'
+    }
   }
 ];

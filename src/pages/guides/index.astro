@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 
 const allPosts = await getAllPosts();
@@ -29,18 +29,12 @@ const guides = allPosts.filter(p => p.categories.includes('student-guides') || p
 
   <section class="archive-content">
     <div class="container">
-      {guides.length > 0 ? (
-        <div class="grid-3col">
-          {guides.map((guide) => (
-            <ResourceCard post={guide} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>No guides found</h3>
-          <p>Please browse all resources or check back shortly.</p>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={guides} 
+        pageSize={9} 
+        emptyTitle="No guides found" 
+        emptyDesc="Please browse all resources or check back shortly."
+      />
     </div>
   </section>
 

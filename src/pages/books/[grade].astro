@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 import { GRADE_FILTERS } from '@/lib/constants';
 import { getGradeStaticPaths } from '@/lib/resource-utils';
@@ -55,19 +55,14 @@ const gradeBooks = allPosts.filter(p => {
 
   <section class="archive-content">
     <div class="container">
-      {gradeBooks.length > 0 ? (
-        <div class="grid-3col">
-          {gradeBooks.map((book) => (
-            <ResourceCard post={book} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>Textbooks for {gradeName} are being updated</h3>
-          <p>Please browse all books or check back shortly.</p>
-          <a href="/books/" class="btn btn-primary" style="margin-top: 1rem;">View All Textbooks</a>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={gradeBooks} 
+        pageSize={9} 
+        emptyTitle={`Textbooks for ${gradeName} are being updated`} 
+        emptyDesc="Please browse all books or check back shortly."
+        emptyActionLabel="View All Textbooks"
+        emptyActionHref="/books/"
+      />
     </div>
   </section>
 

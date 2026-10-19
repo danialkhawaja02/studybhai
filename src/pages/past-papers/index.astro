@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import ResourceCard from '@/components/ResourceCard.astro';
+import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 
 const allPosts = await getAllPosts();
@@ -29,18 +29,12 @@ const pastPapers = allPosts.filter(p => p.categories.includes('past-papers') || 
 
   <section class="archive-content">
     <div class="container">
-      {pastPapers.length > 0 ? (
-        <div class="grid-3col">
-          {pastPapers.map((paper) => (
-            <ResourceCard post={paper} />
-          ))}
-        </div>
-      ) : (
-        <div class="empty-state card-premium">
-          <h3>Past papers directory</h3>
-          <p>Please browse all resources or search by subject.</p>
-        </div>
-      )}
+      <PaginatedResourceGrid 
+        posts={pastPapers} 
+        pageSize={9} 
+        emptyTitle="Past papers directory" 
+        emptyDesc="Please browse all resources or search by subject."
+      />
     </div>
   </section>
 
