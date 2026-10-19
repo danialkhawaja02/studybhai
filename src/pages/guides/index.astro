@@ -6,7 +6,7 @@ import PaginatedResourceGrid from '@/components/PaginatedResourceGrid.astro';
 import { getAllPosts } from '@/lib/wordpress';
 
 const allPosts = await getAllPosts();
-const guides = allPosts.filter(p => p.categories.includes('student-guides') || p.categories.includes('scholarships'));
+const guides = allPosts.filter(p => p.categories.includes('student-guides') || p.categories.includes('tips-guides') || p.categories.includes('scholarships'));
 ---
 
 <Layout 

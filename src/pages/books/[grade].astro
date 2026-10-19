@@ -18,6 +18,7 @@ const allPosts = await getAllPosts();
 const gradeBooks = allPosts.filter(p => {
   const isBook = p.categories.includes('ptb-books') || p.categories.some(c => c.includes('books'));
   const matchesGrade = p.categories.includes(`${grade}-books`) || 
+                       p.categories.includes(`${gradeNum}th-class-books`) ||
                        p.tags.includes(`class-${gradeNum}`) || 
                        p.title.toLowerCase().includes(`class ${gradeNum}`) ||
                        p.title.toLowerCase().includes(`${gradeNum}th`);

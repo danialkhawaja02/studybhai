@@ -15,9 +15,9 @@ import { getAllPosts } from '@/lib/wordpress';
 const allPosts = await getAllPosts();
 
 // Split posts by category for dedicated home page sections
-const featuredNotes = allPosts.filter(p => p.categories.includes('notes') || p.categories.includes('12th-class-notes')).slice(0, 3);
-const featuredBooks = allPosts.filter(p => p.categories.includes('ptb-books') || p.categories.includes('class-9-books') || p.categories.includes('class-10-books')).slice(0, 3);
-const latestGuides = allPosts.filter(p => p.categories.includes('student-guides') || p.categories.includes('scholarships')).slice(0, 3);
+const featuredNotes = allPosts.filter(p => p.categories.includes('notes') || p.categories.some(c => c.includes('notes'))).slice(0, 3);
+const featuredBooks = allPosts.filter(p => p.categories.includes('ptb-books') || p.categories.some(c => c.includes('books'))).slice(0, 3);
+const latestGuides = allPosts.filter(p => p.categories.includes('student-guides') || p.categories.includes('tips-guides') || p.categories.includes('scholarships')).slice(0, 3);
 ---
 
 <Layout 
