@@ -28,13 +28,25 @@ const getPastelTagClass = (subject: string) => {
     <!-- Thumbnail Media -->
     <div class="card-media">
       {post.featuredImage ? (
-        <img 
-          src={post.featuredImage.src} 
-          alt={post.featuredImage.alt || post.title} 
-          loading="lazy" 
-          decoding="async"
-          class="card-img"
-        />
+        <>
+          <img 
+            src={post.featuredImage.src} 
+            alt={post.featuredImage.alt || post.title} 
+            loading="lazy" 
+            decoding="async"
+            class="card-img"
+            onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+          />
+          <div class="card-media-fallback" style="display: none;">
+            <div class="fallback-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+            <span class="fallback-text">{meta.subject}</span>
+          </div>
+        </>
       ) : (
         <div class="card-media-fallback">
           <div class="fallback-icon">

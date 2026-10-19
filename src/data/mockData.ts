@@ -45,7 +45,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-11-15T10:00:00Z',
     modified: '2025-08-01T12:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
       alt: 'Class 12 Math Notes Punjab Board',
       width: 750,
       height: 430
@@ -89,7 +89,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-12-01T08:30:00Z',
     modified: '2025-08-03T04:13:30Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
       alt: 'HEC Stipend Hungaricum Scholarship Guide',
       width: 1280,
       height: 720
@@ -135,7 +135,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-08-15T14:20:00Z',
     modified: '2025-07-20T09:15:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2022/08/USAT-Book-HEC-Test.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2022/08/USAT-Book-HEC-Test.png',
       alt: 'USAT Book Guide HEC Test PDF',
       width: 750,
       height: 430
@@ -180,7 +180,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-05-10T11:00:00Z',
     modified: '2025-06-12T08:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: '9th Class Physics Book PTB',
       width: 600,
       height: 400
@@ -213,7 +213,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-06-15T09:00:00Z',
     modified: '2025-06-15T09:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: '10th Class Chemistry Book PTB',
       width: 600,
       height: 400
@@ -246,7 +246,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-07-20T12:00:00Z',
     modified: '2025-07-20T12:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: '11th Class Biology Notes',
       width: 600,
       height: 400
@@ -279,7 +279,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-08-01T15:00:00Z',
     modified: '2025-08-01T15:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: '10th Class Computer Science Past Papers',
       width: 600,
       height: 400
@@ -309,7 +309,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-01T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
       alt: 'Class 9 Mathematics PTB Book',
       width: 600,
       height: 400
@@ -339,7 +339,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-05T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: 'Class 9 Biology Textbook',
       width: 600,
       height: 400
@@ -369,7 +369,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-10T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
       alt: 'Class 10 Physics Book',
       width: 600,
       height: 400
@@ -399,7 +399,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-15T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
       alt: 'Class 10 English Textbook',
       width: 600,
       height: 400
@@ -429,7 +429,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-20T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: 'Class 11 Physics Book',
       width: 600,
       height: 400
@@ -459,7 +459,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-22T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
       alt: 'Class 11 Chemistry Book',
       width: 600,
       height: 400
@@ -489,7 +489,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-25T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
       alt: 'Class 12 Physics Textbook',
       width: 600,
       height: 400
@@ -519,7 +519,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-09-28T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: 'Class 12 Biology Textbook',
       width: 600,
       height: 400
@@ -549,7 +549,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-10-01T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
       alt: 'Class 9 Chemistry Notes',
       width: 600,
       height: 400
@@ -579,7 +579,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-10-05T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2022/12/class-12-math-notes.png',
       alt: 'Class 10 Mathematics Notes',
       width: 600,
       height: 400
@@ -609,7 +609,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-10-10T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2024/03/demo-elearning-footer-bg.png',
       alt: 'Class 11 Physics Notes',
       width: 600,
       height: 400
@@ -639,7 +639,7 @@ export const MOCK_POSTS: Post[] = [
     date: '2024-10-15T10:00:00Z',
     modified: '2025-08-01T10:00:00Z',
     featuredImage: {
-      src: 'https://studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
+      src: 'https://cms.studybhai.com/wp-content/uploads/2023/12/HEC-Stipend-Hungaricum-Scholarship-2024-Your-Complete-Guide-Procedure.png',
       alt: 'Class 12 Chemistry Notes',
       width: 600,
       height: 400

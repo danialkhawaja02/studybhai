@@ -28,6 +28,14 @@ let cachedPostsPromise: Promise<Post[]> | null = null;
 let cachedCategoriesPromise: Promise<Category[]> | null = null;
 
 /**
+ * Ensure media URLs always point to the CMS host (cms.studybhai.com) where wp-content lives
+ */
+export function normalizeMediaUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  return url.replace(/^https?:\/\/studybhai\.com\/wp-content\//i, 'https://cms.studybhai.com/wp-content/');
+}
+
+/**
  * Fetch wrapper with timeout and error handling
  */
 async function fetchWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS): Promise<Response> {
@@ -38,7 +46,7 @@ async function fetchWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS): Prom
       signal: controller.signal,
       headers: {
         'Accept': 'application/json',
-        'User-Agent': 'StudyBhai-Astro-SSG-Builder/2.0'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
       }
     });
     clearTimeout(id);
@@ -91,7 +99,8 @@ function transformWpPost(wpPost: any): Post {
 
   const rawTitle = wpPost.title?.rendered || '';
   const title = decodeHtmlEntities(rawTitle);
-  const content = wpPost.content?.rendered || '';
+  const rawContent = wpPost.content?.rendered || '';
+  const content = rawContent.replace(/https?:\/\/studybhai\.com\/wp-content\//gi, 'https://cms.studybhai.com/wp-content/');
   const rawExcerpt = wpPost.excerpt?.rendered || '';
   const cleanExcerpt = decodeHtmlEntities(rawExcerpt.replace(/<[^>]*>/g, '').trim()) || title;
 
@@ -103,6 +112,8 @@ function transformWpPost(wpPost: any): Post {
   const termCategories = (wpPost._embedded?.['wp:term']?.[0] || []).map((term: any) => term.slug);
   const termTags = (wpPost._embedded?.['wp:term']?.[1] || []).map((term: any) => term.slug);
 
+  const normalizedFeaturedSrc = normalizeMediaUrl(featuredMedia?.source_url);
+
   return {
     id: wpPost.id,
     slug: wpPost.slug,
@@ -111,11 +122,11 @@ function transformWpPost(wpPost: any): Post {
     excerpt: cleanExcerpt,
     date: wpPost.date,
     modified: wpPost.modified,
-    featuredImage: featuredMedia ? {
-      src: featuredMedia.source_url,
-      alt: decodeHtmlEntities(featuredMedia.alt_text || title),
-      width: featuredMedia.media_details?.width,
-      height: featuredMedia.media_details?.height,
+    featuredImage: normalizedFeaturedSrc ? {
+      src: normalizedFeaturedSrc,
+      alt: decodeHtmlEntities(featuredMedia?.alt_text || title),
+      width: featuredMedia?.media_details?.width,
+      height: featuredMedia?.media_details?.height,
     } : undefined,
     author: {
       id: authorData?.id || 1,
