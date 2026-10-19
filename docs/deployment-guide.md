@@ -72,7 +72,7 @@ git push -u origin master
 3. Select your `studybhai` repository.
 4. Set the build configurations:
    - **Project Name:** `studybhai`
-   - **Framework Preset:** `Astro`
+   - **Framework Preset:** `Astro` 
    - **Build Command:** `npm run build`
    - **Build Output Directory:** `dist`
 5. Click **Environment Variables** and add:
@@ -80,6 +80,23 @@ git push -u origin master
    - `NODE_VERSION` = `20`
 6. Click **Save and Deploy**.
 7. Cloudflare Pages will build the site, index all content with Pagefind, and give you a free live URL (e.g., `studybhai.pages.dev`).
+
+### How WordPress Categories Map to Pages
+
+The Astro build engine automatically maps your WordPress taxonomy categories to their respective hubs and grade archives:
+
+| Hub / Page | WordPress Category Slugs Matched | Real WP Count / Behavior |
+|---|---|---|
+| **Books Hub (`/books/`)** | `ptb-books`, `9th-class-books`, `10th-class-books`, `11th-class-books`, `12th-class-books` | Shows all **32 PTB textbooks** with 9-item pagination |
+| **Class 9 Books (`/books/class-9/`)** | `9th-class-books`, `class-9-books`, or "9th" in title | 2 textbooks |
+| **Class 10 Books (`/books/class-10/`)** | `10th-class-books`, `class-10-books`, or "10th" in title | 1 textbook |
+| **Class 11 Books (`/books/class-11/`)** | `11th-class-books`, `class-11-books`, or "11th" in title | 16 textbooks |
+| **Class 12 Books (`/books/class-12/`)** | `12th-class-books`, `class-12-books`, or "12th" in title | 13 textbooks |
+| **Notes Hub (`/notes/`)** | `notes`, `11th-class-notes`, `12th-class-notes` | Shows **10 chapter notes** with 9-item pagination |
+| **Class 9-12 Notes (`/notes/class-X/`)** | `${gradeNum}th-class-notes`, `class-X-notes`, or title match | Filtered to each specific class |
+| **Scholarships (`/scholarships/`)** | `scholarships` | **3 fully funded scholarships** |
+| **Student Guides (`/guides/`)** | `student-guides`, `tips-guides`, `scholarships` | **10 guides** with 9-item pagination |
+| **Past Papers (`/past-papers/`)** | `past-papers` | Previous 5-year board papers (populates when posts are tagged in WP) |
 
 ---
 
