@@ -1,0 +1,476 @@
+---
+import { NAV_ITEMS } from '@/lib/navigation';
+---
+
+<header class="site-header glass-nav" id="masthead">
+  <div class="container header-container">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-logo" aria-label="Study Bhai Home">
+      <div class="logo-icon-wrap">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">Study<span class="logo-accent">Bhai</span></span>
+        <span class="logo-tagline">Quality Education For All</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Menu -->
+    <nav class="desktop-nav" aria-label="Primary Navigation">
+      <ul class="nav-list">
+        {NAV_ITEMS.map((item) => (
+          <li class={`nav-item ${item.children ? 'has-dropdown' : ''}`}>
+            <a href={item.href} class="nav-link">
+              <span>{item.label}</span>
+              {item.children && (
+                <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              )}
+            </a>
+            {item.children && (
+              <div class="dropdown-menu">
+                <div class="dropdown-inner">
+                  {item.children.map((child) => (
+                    <a href={child.href} class="dropdown-item">
+                      <div class="dropdown-item-title">{child.label}</div>
+                      {child.description && <div class="dropdown-item-desc">{child.description}</div>}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- Search Trigger Button -->
+      <button id="search-trigger-btn" class="search-btn" aria-label="Search resources (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span class="search-btn-text">Search...</span>
+        <kbd class="search-kbd">Ctrl K</kbd>
+      </button>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <span class="drawer-title">Navigation</span>
+        <button id="drawer-close" class="drawer-close" aria-label="Close menu">&times;</button>
+      </div>
+      <nav class="drawer-nav">
+        <ul class="drawer-list">
+          {NAV_ITEMS.map((item) => (
+            <li class="drawer-item">
+              <a href={item.href} class="drawer-link">{item.label}</a>
+              {item.children && (
+                <ul class="drawer-sublist">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} class="drawer-sublink">{child.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    transition: background-color var(--transition-normal);
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+
+  /* Logo */
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--color-brand) 0%, #047857 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    color: #FFFFFF;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    line-height: 1.1;
+  }
+
+  .logo-accent {
+    color: #34D399;
+  }
+
+  .logo-tagline {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  /* Desktop Nav */
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .dropdown-arrow {
+    transition: transform var(--transition-fast);
+    opacity: 0.7;
+  }
+
+  .has-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown Menu */
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 260px;
+    background: #1A2624;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.35);
+    padding: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all var(--transition-normal);
+    z-index: 100;
+  }
+
+  .has-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .dropdown-item {
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast);
+  }
+
+  .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .dropdown-item-title {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .dropdown-item-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+  }
+
+  /* Actions */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-full);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all var(--transition-fast);
+  }
+
+  .search-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(5, 150, 105, 0.5);
+    color: #FFFFFF;
+  }
+
+  .search-kbd {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Mobile Toggle */
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .hamburger-bar {
+    width: 100%;
+    height: 2px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transition: all var(--transition-fast);
+  }
+
+  @media (max-width: 991px) {
+    .desktop-nav {
+      display: none;
+    }
+    .mobile-toggle {
+      display: flex;
+    }
+    .search-btn-text, .search-kbd {
+      display: none;
+    }
+    .search-btn {
+      padding: 0.5rem;
+      border-radius: var(--radius-full);
+    }
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+  }
+
+  .mobile-drawer.active {
+    display: block;
+  }
+
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .drawer-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 82%;
+    max-width: 320px;
+    background: #1A2624;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: slideInRight 0.25s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+  }
+
+  .drawer-title {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .drawer-close {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .drawer-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .drawer-link {
+    display: block;
+    padding: 0.5rem 0;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .drawer-sublist {
+    list-style: none;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(5, 150, 105, 0.4);
+    margin: 0.25rem 0 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .drawer-sublink {
+    display: block;
+    padding: 0.25rem 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.88rem;
+  }
+</style>
+
+<script>
+  // Mobile drawer interaction
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  const closeBtn = document.getElementById('drawer-close');
+  const overlay = document.getElementById('drawer-overlay');
+
+  function openDrawer() {
+    drawer?.classList.add('active');
+    toggleBtn?.setAttribute('aria-expanded', 'true');
+    drawer?.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer?.classList.remove('active');
+    toggleBtn?.setAttribute('aria-expanded', 'false');
+    drawer?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  toggleBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+
+  // Search button trigger
+  const searchBtn = document.getElementById('search-trigger-btn');
+  searchBtn?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('open-search-modal'));
+  });
+
+  // Global keydown for Ctrl+K and /
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('open-search-modal'));
+    }
+    if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('open-search-modal'));
+    }
+  });
+</script>
