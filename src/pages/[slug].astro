@@ -27,6 +27,9 @@ const allPosts = await getAllPosts();
 const relatedPosts = allPosts
   .filter((p) => p.slug !== post.slug && (p.meta.subject === post.meta.subject || p.categories.some(c => post.categories.includes(c))))
   .slice(0, 2);
+// Check if this post is a multi-resource collection post (like "Class 10 Books PDF Download")
+const downloadLinkMatches = (post.content.match(/href="[^"]*(?:drive\.google\.com|export=download|\.pdf)[^"]*"/gi) || []);
+const isCollection = downloadLinkMatches.length > 2;
 ---
 
 <Layout 
@@ -91,23 +94,27 @@ const relatedPosts = allPosts
         <!-- Download Widget if applicable -->
         <DownloadBox 
           title={post.title}
-          fileSize={post.meta.fileSize}
+          fileSize={isCollection ? 'All Subjects Included' : post.meta.fileSize}
           board={post.meta.board}
           grade={post.meta.grade}
-          downloadUrl={post.meta.downloadUrl}
+          downloadUrl={isCollection ? '#books-list' : post.meta.downloadUrl}
+          isCollection={isCollection}
+          buttonText={isCollection ? 'Browse & Download All Books Below ↓' : undefined}
         />
 
         <!-- Rendered Post HTML -->
-        <div class="entry-content typography-post" set:html={contentWithAnchors} />
+        <div class="entry-content typography-post" id="books-list" set:html={contentWithAnchors} />
 
-        <!-- Bottom Download Widget -->
-        <DownloadBox 
-          title={`Download ${post.title}`}
-          fileSize={post.meta.fileSize}
-          board={post.meta.board}
-          grade={post.meta.grade}
-          downloadUrl={post.meta.downloadUrl}
-        />
+        <!-- Bottom Download Widget (only for single-resource posts) -->
+        {!isCollection && (
+          <DownloadBox 
+            title={`Download ${post.title}`}
+            fileSize={post.meta.fileSize}
+            board={post.meta.board}
+            grade={post.meta.grade}
+            downloadUrl={post.meta.downloadUrl}
+          />
+        )}
 
         <!-- Author Card -->
         <div class="author-bio-card card-premium">
@@ -304,16 +311,119 @@ const relatedPosts = allPosts
 
   .typography-post :global(h3) {
     font-family: var(--font-heading);
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     font-weight: 700;
-    color: var(--color-wine-dark);
-    margin: 2rem 0 0.85rem 0;
+    color: #1e2454;
+    margin: 2.25rem 0 0.85rem 0;
+    padding-left: 12px;
+    border-left: 4px solid #555de3;
     scroll-margin-top: 100px;
   }
 
   .typography-post :global(p) {
     margin-bottom: 1.5rem;
     color: var(--color-text);
+  }
+
+  /* Group download buttons side-by-side */
+  .typography-post :global(p:has(> .fasc-button)),
+  .typography-post :global(p:has(> .wp-block-button__link)),
+  .typography-post :global(.wp-block-buttons) {
+    display: inline-flex;
+    align-items: center;
+    margin: 0.25rem 12px 0.75rem 0;
+  }
+
+  /* Universal WordPress Download & View Button Styling */
+  .typography-post :global(.fasc-button),
+  .typography-post :global(.wp-block-button__link),
+  .typography-post :global(a[href*="drive.google.com"]),
+  .typography-post :global(a[href*="export=download"]),
+  .typography-post :global(a[href*=".pdf"]) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 11px 24px !important;
+    border-radius: 9999px !important;
+    font-size: 0.92rem !important;
+    font-weight: 600 !important;
+    font-family: var(--font-sans) !important;
+    text-decoration: none !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer !important;
+    margin: 4px 8px 4px 0 !important;
+    box-shadow: 0 2px 6px rgba(30, 36, 84, 0.08) !important;
+  }
+
+  /* "Read PDF Online" / Preview Button Style */
+  .typography-post :global(.fasc-button.dashicons-visibility),
+  .typography-post :global(.wp-block-button.is-style-outline .wp-block-button__link),
+  .typography-post :global(a[href*="/view"]) {
+    background: #ffffff !important;
+    color: #1e2454 !important;
+    border: 2px solid #555de3 !important;
+  }
+
+  .typography-post :global(.fasc-button.dashicons-visibility:hover),
+  .typography-post :global(.wp-block-button.is-style-outline .wp-block-button__link:hover),
+  .typography-post :global(a[href*="/view"]:hover) {
+    background: #f0f3fa !important;
+    border-color: #1e2454 !important;
+    color: #1e2454 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 14px rgba(85, 93, 227, 0.2) !important;
+  }
+
+  /* "Direct Download PDF" Primary Action Button Style */
+  .typography-post :global(.fasc-button.dashicons-upload),
+  .typography-post :global(.wp-block-button:not(.is-style-outline) .wp-block-button__link),
+  .typography-post :global(a[href*="export=download"]),
+  .typography-post :global(a[href*=".pdf"]) {
+    background: #555de3 !important;
+    color: #ffffff !important;
+    border: 2px solid #555de3 !important;
+  }
+
+  .typography-post :global(.fasc-button.dashicons-upload:hover),
+  .typography-post :global(.wp-block-button:not(.is-style-outline) .wp-block-button__link:hover),
+  .typography-post :global(a[href*="export=download"]:hover),
+  .typography-post :global(a[href*=".pdf"]:hover) {
+    background: #434bc7 !important;
+    border-color: #434bc7 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(85, 93, 227, 0.35) !important;
+  }
+
+  /* Tables in post content */
+  .typography-post :global(table) {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+
+  .typography-post :global(th) {
+    background: #1e2454;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  .typography-post :global(td) {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.92rem;
+  }
+
+  .typography-post :global(tr:nth-child(even)) {
+    background: #f8fafc;
   }
 
   .typography-post :global(ul), .typography-post :global(ol) {
@@ -325,7 +435,7 @@ const relatedPosts = allPosts
   }
 
   .typography-post :global(strong) {
-    color: var(--color-wine-dark);
+    color: #1e2454;
   }
 
   /* Author Bio Card */

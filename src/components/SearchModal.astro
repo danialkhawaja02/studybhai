@@ -367,10 +367,25 @@
 </style>
 
 <script>
-  // Client-side Pagefind search logic with graceful mock fallback
+  // Client-side search with /api/search.json index and optional Pagefind deep search
+  let searchIndexData: any[] | null = null;
+  let isIndexLoaded = false;
   let pagefindInstance: any = null;
   let isPagefindLoaded = false;
   let activeIndex = -1;
+
+  async function loadSearchIndex() {
+    if (isIndexLoaded) return;
+    try {
+      const res = await fetch('/api/search.json');
+      if (res.ok) {
+        searchIndexData = await res.json();
+        isIndexLoaded = true;
+      }
+    } catch {
+      isIndexLoaded = false;
+    }
+  }
 
   async function loadPagefind() {
     if (isPagefindLoaded) return;
@@ -381,10 +396,12 @@
       await pagefindInstance.init();
       isPagefindLoaded = true;
     } catch {
-      // Offline / dev fallback: uses client-side DOM or fallback results
       isPagefindLoaded = false;
     }
   }
+
+  // Preload search index in the background
+  loadSearchIndex();
 
   function initSearchModal() {
     const modal = document.getElementById('search-modal');
@@ -406,6 +423,7 @@
         input.focus();
         input.select();
       }, 50);
+      loadSearchIndex();
       loadPagefind();
     }
 
@@ -514,7 +532,7 @@
 
       searchTimeout = setTimeout(async () => {
         await executeSearch(query);
-      }, 150);
+      }, 100);
     });
 
     // Quick suggestion pills
@@ -532,11 +550,12 @@
 
       let results: any[] = [];
 
+      // 1. If Pagefind is available (e.g. in production), try pagefind first
       if (pagefindInstance && typeof pagefindInstance.search === 'function') {
         try {
           const searchResponse = await pagefindInstance.search(query);
           const rawResults = await Promise.all(
-            searchResponse.results.slice(0, 8).map((r: any) => r.data())
+            searchResponse.results.slice(0, 10).map((r: any) => r.data())
           );
           results = rawResults.map((r: any) => ({
             url: r.url,
@@ -549,23 +568,55 @@
         }
       }
 
-      // If pagefind returned nothing or is dev mode, provide helpful client fallback
-      if (results.length === 0) {
-        const fallbackItems = [
-          { title: 'Class 12 Math Notes (All Chapters PDF)', url: '/class-12-math-notes/', excerpt: 'Comprehensive Class 12 Mathematics handwritten chapter-wise notes and solved exercise solutions.', category: 'Notes' },
-          { title: 'Class 10 Biology Punjab Textbook (PTB)', url: '/class-10-biology-ptb-book/', excerpt: 'Official Punjab Curriculum and Textbook Board (PCTB) Class 10 Biology book PDF download.', category: 'Books' },
-          { title: 'Class 9 Physics Notes English & Urdu Medium', url: '/class-9-physics-notes/', excerpt: 'Complete 9th class Physics short questions, numericals solved, and multiple choice questions.', category: 'Notes' },
-          { title: 'Class 11 English Punjab Board Book', url: '/class-11-english-ptb-book/', excerpt: 'Download PCTB 1st year English textbook for FSC, ICS, and ICOM students free in PDF.', category: 'Books' },
-          { title: 'HEC Stipendium Hungaricum Scholarship Guide', url: '/hec-stipend-hungaricum-scholarship/', excerpt: 'Complete roadmap and requirements for Pakistani students applying for fully funded scholarships.', category: 'Guides' },
-          { title: 'Class 10 Chemistry Past Papers (Lahore Board)', url: '/class-10-chemistry-past-papers/', excerpt: 'Past 5 years solved matric Chemistry board papers for BISE Lahore, Rawalpindi, and Gujranwala.', category: 'Past Papers' }
-        ];
+      // 2. High-speed client-side search across all live posts and pages
+      if (results.length === 0 && (!searchIndexData || searchIndexData.length === 0)) {
+        await loadSearchIndex();
+      }
 
-        const qLower = query.toLowerCase();
-        results = fallbackItems.filter(item =>
-          item.title.toLowerCase().includes(qLower) ||
-          item.excerpt.toLowerCase().includes(qLower) ||
-          item.category.toLowerCase().includes(qLower)
-        );
+      if (results.length === 0 && searchIndexData && searchIndexData.length > 0) {
+        const qLower = query.toLowerCase().trim();
+        const tokens = qLower.split(/\s+/).filter(Boolean);
+
+        const scored = searchIndexData.map(item => {
+          const titleLower = (item.title || '').toLowerCase();
+          const excerptLower = (item.excerpt || '').toLowerCase();
+          const categoryLower = (item.category || '').toLowerCase();
+          const gradeLower = (item.grade || '').toLowerCase();
+          const subjectLower = (item.subject || '').toLowerCase();
+
+          let score = 0;
+          if (titleLower === qLower) score += 120;
+          if (titleLower.startsWith(qLower)) score += 60;
+          if (titleLower.includes(qLower)) score += 35;
+
+          // Check token matches
+          let matchedTokens = 0;
+          for (const token of tokens) {
+            if (titleLower.includes(token)) {
+              score += 15;
+              matchedTokens++;
+            } else if (gradeLower.includes(token) || subjectLower.includes(token)) {
+              score += 12;
+              matchedTokens++;
+            } else if (categoryLower.includes(token)) {
+              score += 8;
+              matchedTokens++;
+            } else if (excerptLower.includes(token)) {
+              score += 4;
+              matchedTokens++;
+            }
+          }
+
+          if (matchedTokens === tokens.length) score += 20;
+
+          return { item, score };
+        });
+
+        results = scored
+          .filter(s => s.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10)
+          .map(s => s.item);
       }
 
       if (results.length === 0) {
