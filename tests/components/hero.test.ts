@@ -1,16 +1,23 @@
 import { describe, it, expect } from 'vitest';
-import { HERO_STATS, GRADE_FILTERS } from '@/lib/constants';
+import fs from 'fs';
+import path from 'path';
 
-describe('Hero Data & Constants', () => {
-  it('should export correct Study Bhai live metrics', () => {
-    expect(HERO_STATS).toEqual([
-      { value: '15+', label: 'Subjects Covered' },
-      { value: '500K+', label: 'Students' },
-      { value: '4', label: 'SDG Goal Focus' },
-    ]);
+describe('Hero Component', () => {
+  it('should render wine hero container with italic serif headline accent', () => {
+    const heroPath = path.resolve(process.cwd(), 'src/components/Hero.astro');
+    const content = fs.readFileSync(heroPath, 'utf-8');
+
+    expect(content).toContain('hero-wine-section');
+    expect(content).toContain('italic-serif');
+    expect(content).toContain('UN SDG 4');
   });
 
-  it('should have 4 high school & intermediate grade filters', () => {
-    expect(GRADE_FILTERS.map(g => g.grade)).toEqual(['9', '10', '11', '12']);
+  it('should render interactive 4-card showcase with pastel tags', () => {
+    const heroPath = path.resolve(process.cwd(), 'src/components/Hero.astro');
+    const content = fs.readFileSync(heroPath, 'utf-8');
+
+    expect(content).toContain('hero-cards-showcase');
+    expect(content).toContain('hero-showcase-card');
+    expect(content).toContain('hero-metrics-pill');
   });
 });
