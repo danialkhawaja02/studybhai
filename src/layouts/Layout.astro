@@ -1,0 +1,37 @@
+---
+import SEO from '@/components/SEO.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  isArticle?: boolean;
+  datePublished?: string;
+  dateModified?: string;
+}
+
+const { title, description, image, isArticle, datePublished, dateModified } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      isArticle={isArticle}
+      datePublished={datePublished}
+      dateModified={dateModified}
+    />
+  </head>
+  <body>
+    <slot name="header" />
+    <main id="main-content" style="flex: 1;">
+      <slot />
+    </main>
+    <slot name="footer" />
+    <slot name="modal" />
+  </body>
+</html>
