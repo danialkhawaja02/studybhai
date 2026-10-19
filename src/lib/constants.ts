@@ -1,3 +1,15 @@
+export const SITE_METADATA = {
+  title: 'Study Bhai - Your Gateway to Quality Education for All Pakistani Students',
+  description: 'Study Bhai provides free PCTB Punjab textbooks, chapter-wise solved notes, board past papers, and university scholarship guides for Matric and Intermediate students across Pakistan.',
+  canonicalUrl: 'https://studybhai.com',
+  author: 'Danial Sohail',
+  stats: {
+    subjects: '15+',
+    students: '500K+',
+    sdgGoal: '4'
+  }
+};
+
 export const HERO_STATS = [
   { value: '15+', label: 'Subjects Covered' },
   { value: '500K+', label: 'Students' },

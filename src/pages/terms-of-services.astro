@@ -1,0 +1,159 @@
+---
+// src/pages/terms-of-services.astro
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { SITE_METADATA } from '@/lib/constants';
+
+const pageTitle = `Terms of Services - ${SITE_METADATA.title}`;
+const pageDesc = 'Review Study Bhai\'s terms of services, educational usage disclaimer, fair use notices for textbooks and notes, and user obligations.';
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+  <Header slot="header" />
+
+  <section class="legal-hero-section">
+    <div class="container">
+      <h1 class="legal-title">Terms of Services</h1>
+      <p class="legal-updated">Last Updated: October 2026</p>
+    </div>
+  </section>
+
+  <section class="legal-content-section">
+    <div class="container">
+      <article class="legal-card">
+        <p class="lead-text">
+          Welcome to <strong>Study Bhai</strong>! By accessing or using our website located at <a href="https://studybhai.com">https://studybhai.com</a>, you agree to be bound by these Terms of Services and our Privacy Policy. If you do not agree with any of these terms, you are prohibited from using this site.
+        </p>
+
+        <h2>1. Non-Commercial Educational Purpose</h2>
+        <p>
+          Study Bhai is a free, non-profit academic resource portal dedicated to advancing UN Sustainable Development Goal 4 (Quality Education) for Pakistani students. All study notes, syllabus breakdown guides, and past paper solutions provided on this website are intended solely for personal study, review, and non-commercial educational purposes.
+        </p>
+
+        <h2>2. Intellectual Property & Textbook Disclaimer</h2>
+        <p>
+          Punjab Curriculum and Textbook Board (PCTB) books, syllabi, and official curriculum frameworks are the intellectual property of the Government of the Punjab and PCTB. Study Bhai does not claim ownership or exclusive copyright over government textbooks. Digital copies provided on this site are shared in the public interest to facilitate access for underprivileged students who cannot afford physical copies or lack regional bookstore availability.
+        </p>
+        <p>
+          If you are an authorized copyright holder and believe any material shared on this platform infringes your legal rights, please contact us immediately at <a href="mailto:support@studybhai.com">support@studybhai.com</a>, and we will review and remove the material promptly.
+        </p>
+
+        <h2>3. Use License & Permissions</h2>
+        <p>
+          Permission is granted to temporarily download one copy of the materials (information, notes, or software) on Study Bhai's website for personal, non-commercial transitory viewing and revision only. Under this license you may not:
+        </p>
+        <ul class="terms-list">
+          <li>Resell, redistribute for payment, or commercially exploit any PDF or study note obtained from Study Bhai;</li>
+          <li>Remove any copyright, watermark, or proprietary notations from the materials;</li>
+          <li>Mirror or frame the materials on any commercial tutoring or paywalled server without explicit written permission;</li>
+          <li>Attempt to decompile, reverse engineer, or perform denial-of-service attacks against our static CDN infrastructure.</li>
+        </ul>
+
+        <h2>4. Accuracy of Educational Content</h2>
+        <p>
+          While our editorial team strives to verify every answer, solved numerical, and formula against official board marking schemes, Study Bhai makes no warranties regarding the absolute accuracy, completeness, or reliability of third-party user-submitted notes. Students are strongly encouraged to cross-reference with official board guidelines and teacher instructions.
+        </p>
+
+        <h2>5. External Links</h2>
+        <p>
+          Study Bhai may contain links to external university portals, HEC scholarship applications, or official Punjab Board websites. Study Bhai has not reviewed all of the sites linked to its website and is not responsible for the contents or security practices of any such linked site. The inclusion of any link does not imply endorsement by Study Bhai.
+        </p>
+
+        <h2>6. Modifications to Terms</h2>
+        <p>
+          Study Bhai may revise these Terms of Services for its website at any time without prior notice. By using this website you agree to be bound by the then current version of these Terms of Services.
+        </p>
+
+        <h2>7. Governing Law</h2>
+        <p>
+          Any claim relating to Study Bhai's website shall be governed by the laws of Pakistan without regard to its conflict of law provisions.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .legal-hero-section {
+    padding: 60px 0 30px;
+    background: radial-gradient(circle at 50% 10%, rgba(5, 150, 105, 0.12) 0%, transparent 60%);
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--color-text-main);
+    letter-spacing: -0.02em;
+    margin: 0 0 8px 0;
+  }
+
+  .legal-updated {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .legal-content-section {
+    padding: 60px 0 80px;
+  }
+
+  .legal-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 40px 50px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .lead-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text-main);
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin: 32px 0 12px;
+  }
+
+  .legal-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+  }
+
+  .legal-card a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .terms-list {
+    margin: 12px 0 20px 24px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .terms-list li {
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .legal-card {
+      padding: 24px 20px;
+    }
+  }
+</style>
