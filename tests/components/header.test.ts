@@ -1,20 +1,28 @@
 import { describe, it, expect } from 'vitest';
-import { NAV_ITEMS } from '@/lib/navigation';
+import fs from 'fs';
+import path from 'path';
 
-describe('Navigation Items', () => {
-  it('should contain all essential Study Bhai educational links', () => {
-    const labels = NAV_ITEMS.map(i => i.label);
-    expect(labels).toContain('Home');
-    expect(labels).toContain('Books');
-    expect(labels).toContain('Notes');
-    expect(labels).toContain('Past Papers');
-    expect(labels).toContain('Student Guides');
-    expect(labels).toContain('Scholarships');
+describe('Header Component', () => {
+  it('should render floating island container and Cadmus navigation structure', () => {
+    const headerPath = path.resolve(process.cwd(), 'src/components/Header.astro');
+    const content = fs.readFileSync(headerPath, 'utf-8');
+
+    // Floating island pill class
+    expect(content).toContain('header-island');
+    // Core de-congested navigation links
+    expect(content).toContain("href: '/books/'");
+    expect(content).toContain("href: '/notes/'");
+    expect(content).toContain("href: '/past-papers/'");
+    expect(content).toContain("href: '/scholarships/'");
+    // Search trigger button
+    expect(content).toContain('data-open-search');
   });
 
-  it('Books dropdown should contain Class 9 through 12 links', () => {
-    const books = NAV_ITEMS.find(i => i.label === 'Books');
-    expect(books?.children?.length).toBe(4);
-    expect(books?.children?.map(c => c.label)).toContain('9th Class Books');
+  it('should have mobile drawer toggle with accessible controls', () => {
+    const headerPath = path.resolve(process.cwd(), 'src/components/Header.astro');
+    const content = fs.readFileSync(headerPath, 'utf-8');
+
+    expect(content).toContain('mobile-menu-btn');
+    expect(content).toContain('mobile-nav-drawer');
   });
 });

@@ -1,169 +1,187 @@
 ---
-import { NAV_ITEMS } from '@/lib/navigation';
+// src/components/Header.astro
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const NAV_LINKS = [
+  { label: 'Books', href: '/books/' },
+  { label: 'Notes', href: '/notes/' },
+  { label: 'Past Papers', href: '/past-papers/' },
+  { label: 'Scholarships', href: '/scholarships/' },
+];
 ---
 
-<header class="site-header glass-nav" id="masthead">
-  <div class="container header-container">
+<header class="header-island-wrapper">
+  <div class="header-island">
     <!-- Brand Logo -->
-    <a href="/" class="brand-logo" aria-label="Study Bhai Home">
-      <div class="logo-icon-wrap">
-        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+    <a href="/" class="header-logo" aria-label="Study Bhai Home">
+      <div class="logo-emblem">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-0.5-.05"></path>
+          <path d="M6 2v20"></path>
+          <path d="M10 8h6"></path>
+          <path d="M10 12h4"></path>
         </svg>
       </div>
-      <div class="logo-text">
-        <span class="logo-name">Study<span class="logo-accent">Bhai</span></span>
-        <span class="logo-tagline">Quality Education For All</span>
+      <div class="logo-text-block">
+        <span class="logo-title">Study<span class="logo-wine">Bhai</span></span>
       </div>
     </a>
 
-    <!-- Desktop Navigation Menu -->
-    <nav class="desktop-nav" aria-label="Primary Navigation">
-      <ul class="nav-list">
-        {NAV_ITEMS.map((item) => (
-          <li class={`nav-item ${item.children ? 'has-dropdown' : ''}`}>
-            <a href={item.href} class="nav-link">
-              <span>{item.label}</span>
-              {item.children && (
-                <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              )}
+    <!-- Desktop Navigation (De-congested 4 Links) -->
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      <ul class="nav-links">
+        {NAV_LINKS.map(item => (
+          <li>
+            <a
+              href={item.href}
+              class={`nav-link ${currentPath.startsWith(item.href) ? 'is-active' : ''}`}
+            >
+              {item.label}
             </a>
-            {item.children && (
-              <div class="dropdown-menu">
-                <div class="dropdown-inner">
-                  {item.children.map((child) => (
-                    <a href={child.href} class="dropdown-item">
-                      <div class="dropdown-item-title">{child.label}</div>
-                      {child.description && <div class="dropdown-item-desc">{child.description}</div>}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
           </li>
         ))}
       </ul>
     </nav>
 
-    <!-- Header Actions -->
+    <!-- Header Actions (Search + Wine CTA) -->
     <div class="header-actions">
-      <!-- Search Trigger Button -->
-      <button id="search-trigger-btn" class="search-btn" aria-label="Search resources (Ctrl+K)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button type="button" class="search-trigger-pill" data-open-search aria-label="Search resources (Ctrl+K)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <span class="search-btn-text">Search...</span>
-        <kbd class="search-kbd">Ctrl K</kbd>
+        <span class="search-label">Search</span>
+        <kbd class="kbd-badge">⌘K</kbd>
       </button>
 
+      <a href="/books/" class="btn-header-wine">
+        <span>Get Free Notes</span>
+      </a>
+
       <!-- Mobile Hamburger Button -->
-      <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
+      <button
+        type="button"
+        class="mobile-menu-btn"
+        id="mobile-menu-toggle"
+        aria-label="Open mobile navigation menu"
+        aria-expanded="false"
+      >
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Navigation Drawer -->
-  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
-    <div class="drawer-overlay" id="drawer-overlay"></div>
-    <div class="drawer-content">
+  <!-- Mobile Drawer Overlay & Panel -->
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+    <div class="drawer-overlay" id="mobile-drawer-overlay"></div>
+    <div class="drawer-panel">
       <div class="drawer-header">
-        <span class="drawer-title">Navigation</span>
-        <button id="drawer-close" class="drawer-close" aria-label="Close menu">&times;</button>
+        <span class="drawer-logo">Study<span>Bhai</span></span>
+        <button type="button" class="drawer-close-btn" id="mobile-drawer-close" aria-label="Close menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
+
       <nav class="drawer-nav">
-        <ul class="drawer-list">
-          {NAV_ITEMS.map((item) => (
-            <li class="drawer-item">
+        <ul class="drawer-links">
+          {NAV_LINKS.map(item => (
+            <li>
               <a href={item.href} class="drawer-link">{item.label}</a>
-              {item.children && (
-                <ul class="drawer-sublist">
-                  {item.children.map((child) => (
-                    <li>
-                      <a href={child.href} class="drawer-sublink">{child.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </li>
           ))}
+          <li class="drawer-divider"></li>
+          <li>
+            <a href="/about/" class="drawer-link-sub">About Us</a>
+          </li>
+          <li>
+            <a href="/contact/" class="drawer-link-sub">Contact & Help</a>
+          </li>
         </ul>
       </nav>
+
+      <div class="drawer-footer">
+        <button type="button" class="drawer-search-btn" data-open-search>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search Books & Notes...</span>
+        </button>
+        <a href="/books/" class="btn-drawer-cta">Explore Free Library</a>
+      </div>
     </div>
   </div>
 </header>
 
 <style>
-  .site-header {
+  .header-island-wrapper {
     position: sticky;
-    top: 0;
-    z-index: 50;
+    top: 14px;
+    z-index: 1000;
     width: 100%;
-    transition: background-color var(--transition-normal);
+    padding: 0 16px;
+    pointer-events: none;
   }
 
-  .header-container {
+  .header-island {
+    pointer-events: auto;
+    max-width: 920px;
+    margin: 0 auto;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-vellum-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 1px 8px 18px 0 hsla(26, 28%, 75%, 0.2);
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 76px;
+    gap: 16px;
+    transition: all var(--transition-normal);
   }
 
   /* Logo */
-  .brand-logo {
+  .header-logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 10px;
     text-decoration: none;
+    flex-shrink: 0;
   }
 
-  .logo-icon-wrap {
-    width: 42px;
-    height: 42px;
-    border-radius: var(--radius-md);
-    background: linear-gradient(135deg, var(--color-brand) 0%, #047857 100%);
+  .logo-emblem {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-wine);
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+    transition: transform var(--transition-fast);
   }
 
-  .logo-icon {
-    width: 24px;
-    height: 24px;
-    color: #FFFFFF;
+  .header-logo:hover .logo-emblem {
+    transform: scale(1.04);
   }
 
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .logo-name {
+  .logo-title {
     font-family: var(--font-heading);
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: #FFFFFF;
-    line-height: 1.1;
+    color: var(--color-text-main);
   }
 
-  .logo-accent {
-    color: #34D399;
-  }
-
-  .logo-tagline {
-    font-size: 0.68rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 500;
+  .logo-wine {
+    color: var(--color-wine);
   }
 
   /* Desktop Nav */
@@ -172,305 +190,319 @@ import { NAV_ITEMS } from '@/lib/navigation';
     align-items: center;
   }
 
-  .nav-list {
+  .nav-links {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 24px;
     list-style: none;
-  }
-
-  .nav-item {
-    position: relative;
+    margin: 0;
+    padding: 0;
   }
 
   .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.55rem 0.95rem;
-    color: rgba(255, 255, 255, 0.85);
     font-size: 0.92rem;
     font-weight: 500;
-    border-radius: var(--radius-full);
-    transition: all var(--transition-fast);
+    color: var(--color-text-main);
+    text-decoration: none;
+    position: relative;
+    padding: 4px 0;
+    transition: color var(--transition-fast);
   }
 
-  .nav-link:hover {
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.08);
+  .nav-link:hover,
+  .nav-link.is-active {
+    color: var(--color-wine);
   }
 
-  .dropdown-arrow {
-    transition: transform var(--transition-fast);
-    opacity: 0.7;
-  }
-
-  .has-dropdown:hover .dropdown-arrow {
-    transform: rotate(180deg);
-  }
-
-  /* Dropdown Menu */
-  .dropdown-menu {
+  .nav-link::after {
+    content: '';
     position: absolute;
-    top: calc(100% + 8px);
+    bottom: -2px;
     left: 0;
-    min-width: 260px;
-    background: #1A2624;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.35);
-    padding: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all var(--transition-normal);
-    z-index: 100;
+    width: 0%;
+    height: 2px;
+    background-color: var(--color-wine);
+    transition: width var(--transition-normal);
   }
 
-  .has-dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .dropdown-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .dropdown-item {
-    padding: 0.65rem 0.85rem;
-    border-radius: var(--radius-md);
-    transition: background-color var(--transition-fast);
-  }
-
-  .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .dropdown-item-title {
-    color: #FFFFFF;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-
-  .dropdown-item-desc {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.75rem;
-    margin-top: 0.15rem;
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    width: 100%;
   }
 
   /* Actions */
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 12px;
   }
 
-  .search-btn {
+  .search-trigger-pill {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.85rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-full);
-    color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
+    gap: 8px;
+    background: var(--color-bg-parchment);
+    border: 1px solid var(--color-vellum-border);
+    padding: 7px 12px;
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
     font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
     transition: all var(--transition-fast);
   }
 
-  .search-btn:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(5, 150, 105, 0.5);
-    color: #FFFFFF;
+  .search-trigger-pill:hover {
+    border-color: var(--color-wine);
+    color: var(--color-text-main);
+    background: #ffffff;
   }
 
-  .search-kbd {
-    font-size: 0.7rem;
+  .kbd-badge {
+    background: var(--color-surface);
+    border: 1px solid var(--color-vellum-border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.72rem;
+    font-family: inherit;
     font-weight: 600;
-    padding: 0.15rem 0.4rem;
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-sm);
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-text-muted);
   }
 
-  /* Mobile Toggle */
-  .mobile-toggle {
+  .btn-header-wine {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-wine);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-header-wine:hover {
+    background-color: var(--color-wine-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(88, 12, 29, 0.25);
+  }
+
+  /* Mobile Button */
+  .mobile-menu-btn {
     display: none;
     flex-direction: column;
-    justify-content: space-between;
-    width: 24px;
-    height: 18px;
+    justify-content: center;
+    gap: 6px;
+    width: 36px;
+    height: 36px;
     background: transparent;
-    border: none;
+    border: 1px solid var(--color-vellum-border);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    padding: 0;
+    padding: 8px;
   }
 
-  .hamburger-bar {
+  .bar {
     width: 100%;
     height: 2px;
-    background-color: #FFFFFF;
+    background-color: var(--color-text-main);
     border-radius: 2px;
     transition: all var(--transition-fast);
   }
 
-  @media (max-width: 991px) {
-    .desktop-nav {
-      display: none;
-    }
-    .mobile-toggle {
-      display: flex;
-    }
-    .search-btn-text, .search-kbd {
-      display: none;
-    }
-    .search-btn {
-      padding: 0.5rem;
-      border-radius: var(--radius-full);
-    }
-  }
-
   /* Mobile Drawer */
-  .mobile-drawer {
+  .mobile-nav-drawer {
     display: none;
     position: fixed;
-    inset: 0;
-    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    pointer-events: auto;
   }
 
-  .mobile-drawer.active {
+  .mobile-nav-drawer.active {
     display: block;
   }
 
   .drawer-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 25, 31, 0.6);
     backdrop-filter: blur(4px);
   }
 
-  .drawer-content {
+  .drawer-panel {
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
-    width: 82%;
+    width: 85%;
     max-width: 320px;
-    background: #1A2624;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
-    overflow-y: auto;
+    height: 100%;
+    background: var(--color-surface);
+    border-left: 1px solid var(--color-vellum-border);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    animation: slideInRight 0.25s ease-out;
+    padding: 24px;
+    animation: drawerSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  @keyframes slideInRight {
+  @keyframes drawerSlide {
     from { transform: translateX(100%); }
     to { transform: translateX(0); }
   }
 
   .drawer-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 1rem;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--color-vellum-border);
+    margin-bottom: 20px;
   }
 
-  .drawer-title {
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 1.1rem;
+  .drawer-logo {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--color-text-main);
   }
 
-  .drawer-close {
+  .drawer-logo span {
+    color: var(--color-wine);
+  }
+
+  .drawer-close-btn {
     background: transparent;
     border: none;
-    color: #FFFFFF;
-    font-size: 1.5rem;
+    color: var(--color-text-main);
     cursor: pointer;
-    line-height: 1;
+    padding: 4px;
   }
 
-  .drawer-list {
+  .drawer-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 12px;
   }
 
   .drawer-link {
-    display: block;
-    padding: 0.5rem 0;
-    color: #FFFFFF;
+    font-size: 1.1rem;
     font-weight: 600;
-    font-size: 1rem;
+    color: var(--color-text-main);
+    display: block;
+    padding: 6px 0;
   }
 
-  .drawer-sublist {
-    list-style: none;
-    padding-left: 1rem;
-    border-left: 2px solid rgba(5, 150, 105, 0.4);
-    margin: 0.25rem 0 0.5rem 0;
+  .drawer-link:hover {
+    color: var(--color-wine);
+  }
+
+  .drawer-divider {
+    height: 1px;
+    background: var(--color-vellum-border);
+    margin: 8px 0;
+  }
+
+  .drawer-link-sub {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    display: block;
+    padding: 4px 0;
+  }
+
+  .drawer-footer {
+    margin-top: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 12px;
+    padding-top: 20px;
   }
 
-  .drawer-sublink {
-    display: block;
-    padding: 0.25rem 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.88rem;
+  .drawer-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--color-bg-parchment);
+    border: 1px solid var(--color-vellum-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .btn-drawer-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: var(--color-wine);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    .btn-header-wine {
+      display: none;
+    }
+
+    .search-label, .kbd-badge {
+      display: none;
+    }
+
+    .search-trigger-pill {
+      padding: 8px;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
   }
 </style>
 
 <script>
-  // Mobile drawer interaction
-  const toggleBtn = document.getElementById('mobile-menu-toggle');
-  const drawer = document.getElementById('mobile-drawer');
-  const closeBtn = document.getElementById('drawer-close');
-  const overlay = document.getElementById('drawer-overlay');
+  function initHeaderDrawer() {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+    const overlay = document.getElementById('mobile-drawer-overlay');
 
-  function openDrawer() {
-    drawer?.classList.add('active');
-    toggleBtn?.setAttribute('aria-expanded', 'true');
-    drawer?.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    if (!toggleBtn || !drawer) return;
+
+    function open() {
+      drawer?.classList.add('active');
+      toggleBtn?.setAttribute('aria-expanded', 'true');
+      drawer?.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      drawer?.classList.remove('active');
+      toggleBtn?.setAttribute('aria-expanded', 'false');
+      drawer?.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    toggleBtn.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    overlay?.addEventListener('click', close);
   }
 
-  function closeDrawer() {
-    drawer?.classList.remove('active');
-    toggleBtn?.setAttribute('aria-expanded', 'false');
-    drawer?.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  toggleBtn?.addEventListener('click', openDrawer);
-  closeBtn?.addEventListener('click', closeDrawer);
-  overlay?.addEventListener('click', closeDrawer);
-
-  // Search button trigger
-  const searchBtn = document.getElementById('search-trigger-btn');
-  searchBtn?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('open-search-modal'));
-  });
-
-  // Global keydown for Ctrl+K and /
-  window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      window.dispatchEvent(new CustomEvent('open-search-modal'));
-    }
-    if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      window.dispatchEvent(new CustomEvent('open-search-modal'));
-    }
-  });
+  initHeaderDrawer();
+  document.addEventListener('astro:page-load', initHeaderDrawer);
 </script>
