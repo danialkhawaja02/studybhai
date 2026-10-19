@@ -150,8 +150,8 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
 
 <style>
   .contact-hero-section {
-    padding: 70px 0 40px;
-    background: radial-gradient(circle at 50% 10%, rgba(5, 150, 105, 0.12) 0%, transparent 60%);
+    padding: 70px 0 50px;
+    background: linear-gradient(180deg, #FFE7DB 0%, #FCF7EF 100%);
     text-align: center;
     border-bottom: 1px solid var(--color-border);
   }
@@ -160,7 +160,7 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
     font-family: var(--font-heading);
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 800;
-    color: var(--color-text-main);
+    color: var(--color-wine-dark);
     letter-spacing: -0.02em;
     margin: 0 0 16px 0;
   }
@@ -175,6 +175,7 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
 
   .contact-content-section {
     padding: 60px 0 80px;
+    background: var(--color-bg);
   }
 
   .contact-grid {
@@ -189,12 +190,14 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: 36px 40px;
+    box-shadow: var(--shadow-sm);
   }
 
   .contact-form-card h2 {
     font-family: var(--font-heading);
     font-size: 1.6rem;
-    color: var(--color-text-main);
+    font-weight: 700;
+    color: var(--color-wine-dark);
     margin: 0 0 8px 0;
   }
 
@@ -225,17 +228,17 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
   .form-group label {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--color-text-main);
+    color: var(--color-wine-dark);
   }
 
   .form-group input,
   .form-group select,
   .form-group textarea {
     padding: 12px 14px;
-    background: var(--color-bg-alt);
+    background: #FFFDFB;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    color: var(--color-text-main);
+    color: var(--color-text);
     font-family: inherit;
     font-size: 0.95rem;
     transition: all 0.15s ease;
@@ -245,8 +248,8 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    border-color: var(--color-wine);
+    box-shadow: 0 0 0 3px rgba(88, 12, 29, 0.12);
   }
 
   .submit-btn {
@@ -254,44 +257,45 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--color-primary);
+    background: var(--color-wine);
     color: #ffffff;
     font-weight: 700;
     font-size: 0.95rem;
     padding: 14px 28px;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
     border: none;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     margin-top: 8px;
   }
 
   .submit-btn:hover {
-    background: #047857;
+    background: var(--color-wine-dark);
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+    box-shadow: 0 4px 14px rgba(88, 12, 29, 0.25);
   }
 
   .success-banner {
     display: flex;
     align-items: center;
     gap: 16px;
-    background: rgba(5, 150, 105, 0.1);
-    border: 1px solid var(--color-primary);
+    background: #FFE7DB;
+    border: 1px solid var(--color-peach);
     border-radius: var(--radius-lg);
     padding: 24px;
-    color: var(--color-primary);
+    color: var(--color-wine-dark);
   }
 
   .success-banner strong {
     display: block;
     font-size: 1.1rem;
     margin-bottom: 4px;
+    color: var(--color-wine);
   }
 
   .success-banner p {
     margin: 0;
-    color: var(--color-text-main);
+    color: var(--color-text);
   }
 
   /* Sidebar */
@@ -307,13 +311,16 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: 28px;
+    box-shadow: var(--shadow-sm);
   }
 
   .info-card h3,
   .faq-card h3 {
+    font-family: var(--font-heading);
     font-size: 1.15rem;
+    font-weight: 700;
     margin: 0 0 20px 0;
-    color: var(--color-text-main);
+    color: var(--color-wine-dark);
   }
 
   .info-item {
@@ -341,7 +348,7 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
   }
 
   .info-link {
-    color: var(--color-primary);
+    color: var(--color-wine);
     font-weight: 600;
     font-size: 0.95rem;
     text-decoration: none;
@@ -354,7 +361,7 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
   .faq-item {
     margin-bottom: 18px;
     padding-bottom: 14px;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px dashed var(--color-border);
   }
 
   .faq-item:last-child {
@@ -366,7 +373,8 @@ const pageDesc = 'Have questions, need help finding a textbook, or want to contr
   .faq-item h4 {
     margin: 0 0 6px 0;
     font-size: 0.95rem;
-    color: var(--color-text-main);
+    font-weight: 600;
+    color: var(--color-wine-dark);
   }
 
   .faq-item p {

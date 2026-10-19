@@ -1,9 +1,13 @@
-import type { ResourceMeta } from '@/types';
+import type { Post, ResourceMeta } from '@/types';
 
 export function calculateReadTime(text: string): string {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   const minutes = Math.max(1, Math.round(words / 200));
   return `${minutes} min read`;
+}
+
+export function extractPostMetadata(post: Post): ResourceMeta {
+  return post.meta || extractResourceMeta(post);
 }
 
 export function extractResourceMeta(data: { title: string; tags?: string[]; content?: string }): ResourceMeta {

@@ -60,9 +60,11 @@ const books = allPosts.filter(p => p.categories.includes('ptb-books') || p.categ
 
 <style>
   .archive-header {
-    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    background: linear-gradient(180deg, var(--color-wine) 0%, var(--color-wine-dark) 100%);
     color: #FFFFFF;
-    padding: 3.5rem 0;
+    padding: 4.5rem 0 3.5rem;
+    position: relative;
+    overflow: hidden;
   }
 
   .breadcrumb-nav {
@@ -70,17 +72,29 @@ const books = allPosts.filter(p => p.categories.includes('ptb-books') || p.categ
     align-items: center;
     gap: 0.5rem;
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 231, 219, 0.7);
     margin-bottom: 1rem;
   }
 
   .breadcrumb-nav a {
-    color: #34D399;
+    color: var(--color-peach);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+  }
+
+  .breadcrumb-nav strong {
+    color: #FFFFFF;
   }
 
   .archive-title {
-    font-size: 2.75rem;
-    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    font-weight: 800;
     color: #FFFFFF;
     letter-spacing: -0.02em;
     margin-bottom: 0.75rem;
@@ -88,9 +102,10 @@ const books = allPosts.filter(p => p.categories.includes('ptb-books') || p.categ
 
   .archive-subtitle {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--color-peach-light);
     max-width: 680px;
     margin-bottom: 2rem;
+    line-height: 1.6;
   }
 
   .filter-pills-row {
@@ -100,22 +115,41 @@ const books = allPosts.filter(p => p.categories.includes('ptb-books') || p.categ
   }
 
   .filter-pills-row .grade-pill {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 231, 219, 0.1);
+    border: 1px solid rgba(255, 200, 174, 0.25);
     color: #FFFFFF;
+    border-radius: var(--radius-full);
+    padding: 0.45rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .filter-pills-row .grade-pill:hover {
+    background: rgba(255, 231, 219, 0.2);
+    color: #FFFFFF;
+    transform: translateY(-1px);
   }
 
   .filter-pills-row .grade-pill.active {
-    background: var(--color-brand);
-    border-color: var(--color-brand);
+    background: var(--color-peach);
+    color: var(--color-wine-dark);
+    border-color: var(--color-peach);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .archive-content {
     padding: 4.5rem 0;
+    background: var(--color-bg);
   }
 
   .empty-state {
     text-align: center;
     padding: 4rem 2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
   }
 </style>

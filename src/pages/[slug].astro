@@ -168,9 +168,11 @@ const relatedPosts = allPosts
 <style>
   /* Post Hero */
   .post-hero {
-    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    background: linear-gradient(180deg, var(--color-wine) 0%, var(--color-wine-dark) 100%);
     color: #FFFFFF;
-    padding: 3.5rem 0 4rem 0;
+    padding: 4.5rem 0 3.5rem;
+    position: relative;
+    overflow: hidden;
   }
 
   .breadcrumb-nav {
@@ -178,16 +180,23 @@ const relatedPosts = allPosts
     align-items: center;
     gap: 0.5rem;
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 231, 219, 0.7);
     margin-bottom: 1.25rem;
   }
 
   .breadcrumb-nav a {
-    color: #34D399;
+    color: var(--color-peach);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
   }
 
   .breadcrumb-current {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-peach-light);
     font-weight: 500;
   }
 
@@ -204,12 +213,13 @@ const relatedPosts = allPosts
     align-items: center;
     gap: 0.35rem;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-peach-light);
   }
 
   .post-hero-title {
-    font-size: 2.75rem;
-    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800;
     line-height: 1.2;
     color: #FFFFFF;
     letter-spacing: -0.02em;
@@ -226,7 +236,7 @@ const relatedPosts = allPosts
   .post-author-bar {
     display: flex;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 200, 174, 0.2);
     padding-top: 1.25rem;
   }
 
@@ -238,7 +248,7 @@ const relatedPosts = allPosts
 
   .author-img {
     border-radius: 50%;
-    border: 2px solid #34D399;
+    border: 2px solid var(--color-peach);
   }
 
   .author-meta {
@@ -253,7 +263,7 @@ const relatedPosts = allPosts
   }
 
   .author-updated {
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--color-peach-light);
     font-size: 0.78rem;
   }
 
@@ -284,19 +294,26 @@ const relatedPosts = allPosts
   }
 
   .typography-post :global(h2) {
+    font-family: var(--font-heading);
     font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--color-wine-dark);
     margin: 2.5rem 0 1rem 0;
     scroll-margin-top: 100px;
   }
 
   .typography-post :global(h3) {
+    font-family: var(--font-heading);
     font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-wine-dark);
     margin: 2rem 0 0.85rem 0;
     scroll-margin-top: 100px;
   }
 
   .typography-post :global(p) {
     margin-bottom: 1.5rem;
+    color: var(--color-text);
   }
 
   .typography-post :global(ul), .typography-post :global(ol) {
@@ -308,7 +325,7 @@ const relatedPosts = allPosts
   }
 
   .typography-post :global(strong) {
-    color: var(--color-primary);
+    color: var(--color-wine-dark);
   }
 
   /* Author Bio Card */
@@ -317,18 +334,23 @@ const relatedPosts = allPosts
     align-items: flex-start;
     gap: 1.5rem;
     padding: 2rem;
-    background: #F8FAFC;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
     margin: 3.5rem 0;
   }
 
   .bio-avatar {
     border-radius: 50%;
+    border: 2px solid var(--color-peach);
   }
 
   .bio-name {
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--color-wine-dark);
     margin-bottom: 0.35rem;
   }
 
@@ -350,14 +372,17 @@ const relatedPosts = allPosts
 
   .share-card {
     padding: 1.5rem;
-    background: #FFFFFF;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
   }
 
   .share-title {
     font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--color-wine-dark);
     margin-bottom: 0.35rem;
   }
 
@@ -372,16 +397,21 @@ const relatedPosts = allPosts
   }
 
   .whatsapp-btn {
-    background: #25D366;
+    background: #15803d;
+    color: #FFFFFF;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    transition: all 0.2s ease;
   }
 
   .whatsapp-btn:hover {
-    background: #20BD5A;
+    background: #166534;
+    transform: translateY(-1px);
   }
 
   /* Related Section */
   .related-section {
-    border-top: 1px solid var(--color-border);
+    border-top: 1px dashed var(--color-border);
     padding-top: 4rem;
   }
 
@@ -390,9 +420,10 @@ const relatedPosts = allPosts
   }
 
   .related-title {
+    font-family: var(--font-heading);
     font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-primary);
+    font-weight: 800;
+    color: var(--color-wine-dark);
     margin-bottom: 0.35rem;
   }
 
