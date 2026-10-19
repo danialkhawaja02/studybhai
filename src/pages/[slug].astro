@@ -1,0 +1,403 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import DownloadBox from '@/components/DownloadBox.astro';
+import TableOfContents from '@/components/TableOfContents.astro';
+import ResourceCard from '@/components/ResourceCard.astro';
+import { getAllPosts, getPostBySlug } from '@/lib/wordpress';
+import { extractHeadingsFromHtml, injectHeadingAnchors } from '@/lib/content-parser';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+// Parse headings and inject anchor IDs for table of contents
+const headings = extractHeadingsFromHtml(post.content);
+const contentWithAnchors = injectHeadingAnchors(post.content);
+
+// Related posts
+const allPosts = await getAllPosts();
+const relatedPosts = allPosts
+  .filter((p) => p.slug !== post.slug && (p.meta.subject === post.meta.subject || p.categories.some(c => post.categories.includes(c))))
+  .slice(0, 3);
+---
+
+<Layout 
+  title={`${post.title} - Study Bhai`}
+  description={post.excerpt}
+  image={post.featuredImage?.src}
+  isArticle={true}
+  datePublished={post.date}
+  dateModified={post.modified}
+>
+  <Header slot="header" />
+
+  <!-- Single Post Hero Header -->
+  <header class="post-hero">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="/">Home</a> <span>/</span> 
+        <a href={post.categories.includes('ptb-books') ? '/books/' : '/notes/'}>
+          {post.categories.includes('ptb-books') ? 'Books' : 'Notes'}
+        </a> 
+        <span>/</span> 
+        <span class="breadcrumb-current">{post.meta.subject}</span>
+      </nav>
+
+      <div class="post-hero-badges">
+        <span class="badge badge-brand">{post.meta.subject}</span>
+        <span class="badge badge-gold">{post.meta.grade}</span>
+        <span class="post-read-time">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          {post.meta.readTime}
+        </span>
+      </div>
+
+      <h1 class="post-hero-title">{post.title}</h1>
+
+      <div class="post-author-bar">
+        <div class="author-profile">
+          <img 
+            src={post.author.avatar} 
+            alt={post.author.name} 
+            class="author-img" 
+            width="40" 
+            height="40"
+          />
+          <div class="author-meta">
+            <span class="author-name">Written by {post.author.name}</span>
+            <span class="author-updated">Updated: {new Date(post.modified || post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Layout Grid -->
+  <div class="container post-container">
+    <div class="post-layout-grid">
+      <!-- Main Content Article -->
+      <article class="post-main-content">
+        <!-- Download Widget if applicable -->
+        <DownloadBox 
+          title={post.title}
+          fileSize={post.meta.fileSize}
+          board={post.meta.board}
+          grade={post.meta.grade}
+          downloadUrl={post.meta.downloadUrl}
+        />
+
+        <!-- Rendered Post HTML -->
+        <div class="entry-content typography-post" set:html={contentWithAnchors} />
+
+        <!-- Bottom Download Widget -->
+        <DownloadBox 
+          title={`Download ${post.title}`}
+          fileSize={post.meta.fileSize}
+          board={post.meta.board}
+          grade={post.meta.grade}
+          downloadUrl={post.meta.downloadUrl}
+        />
+
+        <!-- Author Card -->
+        <div class="author-bio-card card-premium">
+          <img src={post.author.avatar} alt={post.author.name} class="bio-avatar" width="64" height="64" />
+          <div class="bio-details">
+            <h3 class="bio-name">{post.author.name}</h3>
+            <p class="bio-text">
+              Senior educational editor at Study Bhai. Passionate about empowering all Pakistani students with verified syllabus resources, textbook digitization, and university admission roadmaps.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <!-- Table of contents -->
+          <TableOfContents headings={headings} />
+
+          <!-- Quick Share Card -->
+          <div class="share-card card-premium">
+            <h4 class="share-title">Share with Classmates</h4>
+            <p class="share-desc">Help other students prepare for their board examinations.</p>
+            <div class="share-buttons">
+              <a 
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title)}%20https://studybhai.com/${post.slug}/`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn btn-primary share-btn whatsapp-btn"
+              >
+                <span>Share on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Related Resources Section -->
+    {relatedPosts.length > 0 && (
+      <section class="related-section">
+        <div class="related-header">
+          <h2 class="related-title">Related Study Resources</h2>
+          <p class="related-subtitle">Continue your exam preparation with similar chapter notes and books.</p>
+        </div>
+        <div class="grid-3col">
+          {relatedPosts.map((rel) => (
+            <ResourceCard post={rel} />
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  /* Post Hero */
+  .post-hero {
+    background: linear-gradient(180deg, #1F2E2B 0%, #152220 100%);
+    color: #FFFFFF;
+    padding: 3.5rem 0 4rem 0;
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1.25rem;
+  }
+
+  .breadcrumb-nav a {
+    color: #34D399;
+  }
+
+  .breadcrumb-current {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+  }
+
+  .post-hero-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .post-read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .post-hero-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.75rem;
+    max-width: 900px;
+  }
+
+  @media (max-width: 768px) {
+    .post-hero-title {
+      font-size: 2rem;
+    }
+  }
+
+  .post-author-bar {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.25rem;
+  }
+
+  .author-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .author-img {
+    border-radius: 50%;
+    border: 2px solid #34D399;
+  }
+
+  .author-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .author-updated {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.78rem;
+  }
+
+  /* Post Layout Grid */
+  .post-container {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .post-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3.5rem;
+    align-items: start;
+    margin-bottom: 5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .post-layout-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Post Typography */
+  .typography-post {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .typography-post :global(h2) {
+    font-size: 1.85rem;
+    margin: 2.5rem 0 1rem 0;
+    scroll-margin-top: 100px;
+  }
+
+  .typography-post :global(h3) {
+    font-size: 1.45rem;
+    margin: 2rem 0 0.85rem 0;
+    scroll-margin-top: 100px;
+  }
+
+  .typography-post :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .typography-post :global(ul), .typography-post :global(ol) {
+    margin: 1.25rem 0 1.75rem 1.5rem;
+  }
+
+  .typography-post :global(li) {
+    margin-bottom: 0.65rem;
+  }
+
+  .typography-post :global(strong) {
+    color: var(--color-primary);
+  }
+
+  /* Author Bio Card */
+  .author-bio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: #F8FAFC;
+    margin: 3.5rem 0;
+  }
+
+  .bio-avatar {
+    border-radius: 50%;
+  }
+
+  .bio-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .bio-text {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* Sidebar */
+  .sidebar-sticky {
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .share-card {
+    padding: 1.5rem;
+    background: #FFFFFF;
+  }
+
+  .share-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .share-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .share-btn {
+    width: 100%;
+  }
+
+  .whatsapp-btn {
+    background: #25D366;
+  }
+
+  .whatsapp-btn:hover {
+    background: #20BD5A;
+  }
+
+  /* Related Section */
+  .related-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: 4rem;
+  }
+
+  .related-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .related-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .related-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+  }
+</style>
